@@ -18,7 +18,7 @@ Such tasks cannot be solved by models that rely solely on static knowledge acqui
 
 
 <p align="center">
-  <img src="assets/task.png" alt="CL-bench Overview" width="70%">
+  <img src="assets/task.png" alt="CL-bench Overview" width="80%">
 </p>
 
 *Figure 2: Each instance in CL-bench comprises a system prompt, a task, the context containing the new knowledge necessary for solving the task, and rubrics to assess the task. All instances are annotated by experienced domain experts.*
