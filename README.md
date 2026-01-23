@@ -1,4 +1,14 @@
-# CL-bench: Are Language Models Ready for Context Engineering?
+<div align="center">
+<img src="assets/hunyuan.png" alt="Tencent-Hunyuan" width="150"/>
+</div>
+
+<div align="center">
+<h1>CL-bench: Are Language Models Ready for Context Engineering?</h1>
+
+[![Leaderboard](https://img.shields.io/badge/Leaderboard-red.svg?style=for-the-badge)](clbench.com)
+[![Paper](https://img.shields.io/badge/Paper-Arxiv-blue.svg?style=for-the-badge)](xxx)
+[![HuggingFace](https://img.shields.io/badge/Data-HF-yellow.svg?style=for-the-badge)](https://huggingface.co/tencent/CL-bench)
+</div>
 
 CL-bench is a benchmark for evaluating language models' context learning, a foundational capability for enabling effective context utilization, advancing context engineering, and improving models’ intelligence and practicality.
 
@@ -50,7 +60,7 @@ CL-bench provides:
 
 - **Samples**: 1,899 tasks
 - **Format**: JSONL (one JSON object per line)
-- **Dataset**: Available on [Hugging Face](https://huggingface.co/datasets/Ablustrund/CL-bench)
+- **Dataset**: Available on [Hugging Face](https://huggingface.co/tencent/CL-bench)
 
 ### Data Structure
 
