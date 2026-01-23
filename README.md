@@ -1,14 +1,14 @@
 # CL-bench: Are Language Models Ready for Context Engineering?
 
+CL-bench is a benchmark for evaluating language models' context learning, a foundational capability for enabling effective context utilization, advancing context engineering, and improving models’ intelligence and practicality.
+
 <p align="center">
-  <img src="assets/four-concepts.png" alt="Four key concepts" width="100%">
+  <img src="assets/four-concepts.png" alt="Four key concepts" width="70%">
 </p>
 
 *Figure 1: A comparison of four key concepts.*
 
 <br>
-
-CL-bench is a benchmark for evaluating language models' context learning, a foundational capability for enabling effective context utilization, advancing context engineering, and improving models’ intelligence and practicality.
 
 
 
@@ -18,7 +18,7 @@ Such tasks cannot be solved by models that rely solely on static knowledge acqui
 
 
 <p align="center">
-  <img src="assets/task.png" alt="CL-bench Overview" width="100%">
+  <img src="assets/task.png" alt="CL-bench Overview" width="70%">
 </p>
 
 *Figure 2: Each instance in CL-bench comprises a system prompt, a task, the context containing the new knowledge necessary for solving the task, and rubrics to assess the task. All instances are annotated by experienced domain experts.*
