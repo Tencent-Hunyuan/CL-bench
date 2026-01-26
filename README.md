@@ -7,7 +7,7 @@
 
 [![Leaderboard](https://img.shields.io/badge/Leaderboard-red.svg?style=for-the-badge)](clbench.com)
 [![Paper](https://img.shields.io/badge/Paper-Arxiv-blue.svg?style=for-the-badge)](xxx)
-[![HuggingFace](https://img.shields.io/badge/Data-HF-yellow.svg?style=for-the-badge)](https://huggingface.co/tencent/CL-bench)
+[![HuggingFace](https://img.shields.io/badge/Data-HF-yellow.svg?style=for-the-badge)](https://huggingface.co/datasets/tencent/CL-bench)
 
 </div>
 
@@ -22,7 +22,7 @@ CL-bench is a benchmark for evaluating language models' context learning, a foun
 <br>
 
 Resolving tasks in CL-bench requires models to learn new knowledge from the provided context, ranging from domain-specific knowledge, rule systems, and complex procedures to laws derived from empirical data, all of which are absent from pre-training.
-Such tasks cannot be solved by models that rely solely on static knowledge acquired during pre-training.
+Such tasks almost cannot be solved by models that rely solely on static knowledge acquired during pre-training.
 
 <p align="center">
   <img src="assets/task.png" alt="CL-bench Overview" width="80%">
@@ -55,7 +55,7 @@ CL-bench provides:
 
 - **Samples**: 1,899 tasks
 - **Format**: JSONL (one JSON object per line)
-- **Dataset**: Available on [Hugging Face](https://huggingface.co/tencent/CL-bench)
+- **Dataset**: Available on [Hugging Face](https://huggingface.co/datasets/tencent/CL-bench)
 
 ### Data Structure
 
@@ -63,7 +63,6 @@ Each sample contains:
 
 ```json
 {
-  "task_id": "unique-task-identifier",
   "messages": [
     {"role": "system", "content": "..."},
     {"role": "user", "content": "..."},
@@ -76,16 +75,16 @@ Each sample contains:
     ...
   ],
   "metadata": {
+    "task_id": "unique-task-identifier",
     "context_category": "...",
     "sub_category": "..."
   }
 }
 ```
 
-- **task_id**: Unique identifier for each task
 - **messages**: Follow OpenAI chat format
 - **rubrics**: List of evaluation criteria for grading model solutions
-- **metadata**: Category information and other metadata
+- **metadata**: Task id and category information and other metadata
 
 ## 🚀 Quick Start
 
@@ -111,7 +110,7 @@ python infer.py --model deepseek-chat \
     --output outputs/deepseek.jsonl
 
 # Enable concurrent inference
-python infer.py --model gpt-5.1 --workers 5
+python infer.py --model gpt-5.1 --workers 20
 ```
 
 ### 2. Run Evaluation
@@ -132,7 +131,7 @@ CL-bench/
 └── outputs/            # Output directory (created automatically)
 ```
 
-> **Note**: The dataset (`CL-bench.jsonl`) is hosted on [Hugging Face](https://huggingface.co/datasets/Ablustrund/CL-bench). Please download it from there before running the scripts.
+> **Note**: The dataset (`CL-bench.jsonl`) is hosted on [Hugging Face](https://huggingface.co/datasets/tencent/CL-bench). Please download it from there before running the scripts.
 
 ## ⚙️ Script Options
 
