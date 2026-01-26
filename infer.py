@@ -121,7 +121,6 @@ def process_single_case(args):
         "idx": idx,
         "messages": messages,
         "model_output": response_text,
-        "ref_answer": item.get("ref_answer", ""),
         "rubrics": item.get("rubrics", [])
     }
     
