@@ -3,11 +3,12 @@
 </div>
 
 <div align="center">
-<h1>CL-bench: Are Language Models Ready for Context Engineering?</h1>
+<h1>CL-bench: A Benchmark for Context Learning</h1>
 
 [![Leaderboard](https://img.shields.io/badge/Leaderboard-red.svg?style=for-the-badge)](clbench.com)
 [![Paper](https://img.shields.io/badge/Paper-Arxiv-blue.svg?style=for-the-badge)](xxx)
 [![HuggingFace](https://img.shields.io/badge/Data-HF-yellow.svg?style=for-the-badge)](https://huggingface.co/tencent/CL-bench)
+
 </div>
 
 CL-bench is a benchmark for evaluating language models' context learning, a foundational capability for enabling effective context utilization, advancing context engineering, and improving models’ intelligence and practicality.
@@ -20,19 +21,14 @@ CL-bench is a benchmark for evaluating language models' context learning, a foun
 
 <br>
 
-
-
 Resolving tasks in CL-bench requires models to learn new knowledge from the provided context, ranging from domain-specific knowledge, rule systems, and complex procedures to laws derived from empirical data, all of which are absent from pre-training.
 Such tasks cannot be solved by models that rely solely on static knowledge acquired during pre-training.
-
-
 
 <p align="center">
   <img src="assets/task.png" alt="CL-bench Overview" width="80%">
 </p>
 
 *Figure 2: Each instance in CL-bench comprises a system prompt, a task, the context containing the new knowledge necessary for solving the task, and rubrics to assess the task. All instances are annotated by experienced domain experts.*
-
 
 ## 🏆 Leaderboard
 
@@ -45,7 +41,6 @@ You can find the full leaderboard at [clbench.com](clbench.com)!
 - 🔥 **Challenging**: Up to 12 tasks per context (avg. 3.8); annotating each context requires an average of 20 hours of expert effort; multi-turn interactions with task dependencies
 - ✅ **Rigorously Verifiable**: Average 63.2 rubrics per context, annotated by experts to assess whether the model solution fully solves the task across multiple dimensions.
 - 📦 **Self-contained**: All required knowledge provided within context, no external retrieval needed
-
 
 ## 📋 Overview
 
@@ -143,23 +138,25 @@ CL-bench/
 
 ### infer.py
 
-| Argument        | Default         | Description                                           |
-| --------------- | --------------- | ----------------------------------------------------- |
-| `--model`       | `gpt-5.1`        | Model name                                            |
-| `--input`       | `CL-bench.jsonl` | Input file path                                       |
-| `--output`      | Auto-generated  | Output file path                                      |
-| `--base-url`    | None            | Custom API base URL                                   |
-| `--api-key`     | From env        | API key                                               |
-| `--workers`     | 1               | Number of concurrent workers                          |
-| `--max-samples` | None            | Limit samples (for testing)                           |
+
+| Argument        | Default          | Description                  |
+| --------------- | ---------------- | ---------------------------- |
+| `--model`       | `gpt-5.1`        | Model name                   |
+| `--input`       | `CL-bench.jsonl` | Input file path              |
+| `--output`      | Auto-generated   | Output file path             |
+| `--base-url`    | None             | Custom API base URL          |
+| `--api-key`     | From env         | API key                      |
+| `--workers`     | 1                | Number of concurrent workers |
+| `--max-samples` | None             | Limit samples (for testing)  |
 
 ### eval.py
+
 
 | Argument        | Default        | Description                  |
 | --------------- | -------------- | ---------------------------- |
 | `--input`       | Required       | Input JSONL file path        |
 | `--output`      | Auto-generated | Output file path             |
-| `--judge-model` | `gpt-5.1`       | Judge model name             |
+| `--judge-model` | `gpt-5.1`      | Judge model name             |
 | `--base-url`    | None           | Custom API base URL          |
 | `--api-key`     | From env       | API key                      |
 | `--workers`     | 1              | Number of concurrent workers |
@@ -181,7 +178,6 @@ Solving Rate = (Number of Score 1) / (Total Samples)
 
 **Note**: Empty model outputs are counted as Score 0.
 
-
 ## 📝 Citation
 
 If you like CL-bench and use it in your research, you can cite:
@@ -190,8 +186,6 @@ If you like CL-bench and use it in your research, you can cite:
 todo
 ```
 
-
 ## 🤝 Contact Us
 
 Shihan Dou: shihandou@foxmail.com, Ming Zhang: mingzhang23@m.fudan.edu.cn
-
