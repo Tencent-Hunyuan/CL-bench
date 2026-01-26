@@ -174,7 +174,7 @@ def process_single_item(args):
             "requirement_status": [],
             "score": 0
         }
-        return idx, result, None
+        return idx, result, None # None is no error
     
     # Build rubrics text
     rubrics_text = build_rubrics_text(rubrics)
@@ -200,7 +200,7 @@ def process_single_item(args):
                     "requirement_status": [],
                     "score": 0
                 }
-                return idx, result, "API call failed"
+                return idx, result, "API call failed" # error
         
         # Try to parse JSON
         try:
@@ -217,7 +217,7 @@ def process_single_item(args):
                 "requirement_status": result_json.get("List of Requirement Satisfaction Status", []),
                 "score": result_json.get("Overall Score", "")
             }
-            return idx, result, None
+            return idx, result, None # None is no error
             
         except (json.JSONDecodeError, ValueError) as e:
             log(f"   ⚠️ [idx={idx}] JSON parse failed (attempt {parse_attempt + 1}/{max_retries}): {e}")
@@ -234,7 +234,7 @@ def process_single_item(args):
                     "requirement_status": [],
                     "score": 0
                 }
-                return idx, result, f"JSON parse failed: {e}"
+                return idx, result, f"JSON parse failed: {e}" # error
     
     # Should not reach here
     result = {
@@ -318,11 +318,11 @@ def main():
         # Single-threaded
         for task in tqdm(tasks, desc="Evaluating"):
             idx, result, error = process_single_item(task)
-            append_jsonl(result, args.output)
             
             if error:
                 fail_count += 1
             else:
+                append_jsonl(result, args.output)
                 success_count += 1
     else:
         # Multi-threaded
@@ -333,11 +333,11 @@ def main():
                 for future in as_completed(futures):
                     try:
                         idx, result, error = future.result()
-                        append_jsonl(result, args.output)
                         
                         if error:
                             fail_count += 1
                         else:
+                            append_jsonl(result, args.output)
                             success_count += 1
                     except Exception as e:
                         log(f"   ❌ Exception: {str(e)}")
