@@ -77,19 +77,18 @@ def build_rubrics_text(rubrics):
 
 def call_judge_api(client, model, rubrics_text, model_output, max_retries=3, retry_delay=3):
     """
-    Call judge model API for grading.
+    Call judge model API for grading (only handles API call, returns raw text).
     
     Args:
         client: OpenAI client instance
         model: Judge model name
         rubrics_text: Formatted rubrics text
         model_output: Model's response to be graded
-        max_retries: Maximum number of retries
+        max_retries: Maximum number of retries for API call
         retry_delay: Delay between retries (seconds)
     
     Returns:
-        grading_result: Parsed grading result dict or None
-        error: Error message (if any)
+        result_text: Raw response text from API, or None if failed
     """
     grading_prompt = (
         "Starting now, you are a rigorous instruction-following grading teacher. Your task is to accurately grade and score student answers based on the 【Rubrics】.\n\n"
@@ -133,8 +132,6 @@ def call_judge_api(client, model, rubrics_text, model_output, max_retries=3, ret
             response = client.chat.completions.create(
                 model=model,
                 messages=messages,
-                temperature=0,
-                max_tokens=4096,
             )
             result_text = response.choices[0].message.content.strip()
             
@@ -147,32 +144,18 @@ def call_judge_api(client, model, rubrics_text, model_output, max_retries=3, ret
                 result_text = result_text[:-3]
             result_text = result_text.strip()
             
-            # Parse JSON
-            result = json.loads(result_text)
-            
-            # Validate required field
-            if "Overall Score" not in result:
-                raise ValueError("Missing 'Overall Score' field in response")
-            
-            return result, None
-            
-        except json.JSONDecodeError as e:
-            error_msg = f"JSON parse error: {str(e)}"
-            if attempt < max_retries - 1:
-                log(f"   ⚠️ {error_msg}, retrying...")
-                time.sleep(retry_delay)
-            else:
-                return None, error_msg
+            return result_text
                 
         except Exception as e:
             error_msg = str(e)
             if attempt < max_retries - 1:
-                log(f"   ⚠️ Call failed (attempt {attempt + 1}): {error_msg[:100]}")
+                log(f"   ⚠️ API call failed (attempt {attempt + 1}/{max_retries}): {error_msg[:100]}")
                 time.sleep(retry_delay)
             else:
-                return None, error_msg
+                log(f"   ❌ API call failed after {max_retries} attempts: {error_msg[:100]}")
+                return None
     
-    return None, "Unknown error"
+    return None
 
 
 def process_single_item(args):
@@ -196,29 +179,71 @@ def process_single_item(args):
     # Build rubrics text
     rubrics_text = build_rubrics_text(rubrics)
     
-    # Call judge API
-    grading_result, error = call_judge_api(
-        client, judge_model, rubrics_text, model_output, max_retries
-    )
+    # JSON parsing retry logic (re-call API if JSON parsing fails)
+    for parse_attempt in range(max_retries):
+        # Call judge API
+        grading_result = call_judge_api(
+            client, judge_model, rubrics_text, model_output, max_retries
+        )
+        
+        if not grading_result:
+            log(f"   ❌ [idx={idx}] API call failed (attempt {parse_attempt + 1}/{max_retries})")
+            if parse_attempt < max_retries - 1:
+                log(f"      Waiting 2s before retry...")
+                time.sleep(2)
+                continue
+            else:
+                # All retries failed
+                result = {
+                    **item,
+                    "grading_rationale": "API call failed (counted as score 0)",
+                    "requirement_status": [],
+                    "score": 0
+                }
+                return idx, result, "API call failed"
+        
+        # Try to parse JSON
+        try:
+            result_json = json.loads(grading_result)
+            
+            # Validate required field
+            if "Overall Score" not in result_json:
+                raise ValueError("Missing 'Overall Score' field")
+            
+            # Parse success
+            result = {
+                **item,
+                "grading_rationale": result_json.get("Grading Rationale", ""),
+                "requirement_status": result_json.get("List of Requirement Satisfaction Status", []),
+                "score": result_json.get("Overall Score", "")
+            }
+            return idx, result, None
+            
+        except (json.JSONDecodeError, ValueError) as e:
+            log(f"   ⚠️ [idx={idx}] JSON parse failed (attempt {parse_attempt + 1}/{max_retries}): {e}")
+            log(f"      Raw response: {grading_result[:200]}...")
+            
+            if parse_attempt < max_retries - 1:
+                log(f"      Waiting 2s before re-grading...")
+                time.sleep(2)
+            else:
+                log(f"   ❌ [idx={idx}] JSON parse failed after {max_retries} attempts")
+                result = {
+                    **item,
+                    "grading_rationale": f"JSON parse failed ({max_retries} attempts): {grading_result[:500]}",
+                    "requirement_status": [],
+                    "score": 0
+                }
+                return idx, result, f"JSON parse failed: {e}"
     
-    if error:
-        result = {
-            **item,
-            "grading_rationale": f"Grading failed: {error} (counted as score 0)",
-            "requirement_status": [],
-            "score": 0
-        }
-        return idx, result, error
-    
-    # Build output
+    # Should not reach here
     result = {
         **item,
-        "grading_rationale": grading_result.get("Grading Rationale", ""),
-        "requirement_status": grading_result.get("List of Requirement Satisfaction Status", []),
-        "score": grading_result.get("Overall Score", "")
+        "grading_rationale": "Unknown error (counted as score 0)",
+        "requirement_status": [],
+        "score": 0
     }
-    
-    return idx, result, None
+    return idx, result, "Unknown error"
 
 
 def main():

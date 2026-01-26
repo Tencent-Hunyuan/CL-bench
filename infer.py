@@ -85,7 +85,6 @@ def call_openai_api(client, messages, model, max_retries=3, retry_delay=3):
             response = client.chat.completions.create(
                 model=model,
                 messages=messages,
-                temperature=0.7,
             )
             return response.choices[0].message.content, None
         except Exception as e:
