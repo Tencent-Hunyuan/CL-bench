@@ -265,6 +265,14 @@
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-divider {
+            width: 1px;
+            height: 24px;
+            background: var(--border);
+            margin: 0 0.5rem;
         }
 
         .filter-btn {
@@ -283,6 +291,18 @@
             background: var(--primary);
             border-color: var(--primary);
             color: white;
+        }
+
+        .filter-btn.reasoning-active {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            border-color: #06b6d4;
+            color: white;
+        }
+
+        .filter-btn.reasoning-btn:hover:not(.reasoning-active) {
+            background: var(--bg-hover);
+            border-color: #06b6d4;
+            color: var(--text);
         }
 
         /* Table */
@@ -664,6 +684,10 @@
                     <button class="filter-btn" data-filter="Moonshot">Moonshot</button>
                     <button class="filter-btn" data-filter="ByteDance">ByteDance</button>
                     <button class="filter-btn" data-filter="Tencent">Tencent</button>
+                    <div class="filter-divider"></div>
+                    <button class="filter-btn reasoning-btn reasoning-active" data-reasoning="all">All</button>
+                    <button class="filter-btn reasoning-btn" data-reasoning="high">High Reasoning</button>
+                    <button class="filter-btn reasoning-btn" data-reasoning="low">Low/No Reasoning</button>
                 </div>
             </div>
 
@@ -787,6 +811,33 @@
         let sortColumn = 'score';
         let sortDirection = 'desc';
         let expandedRows = new Set();
+        let currentOrgFilter = 'all';
+        let currentReasoningFilter = 'all';
+
+        // Check if a model is high reasoning (has "Thinking" or "(High)" in name)
+        function isHighReasoning(modelName) {
+            return modelName.includes('Thinking') || modelName.includes('(High)');
+        }
+
+        // Apply both org and reasoning filters
+        function applyFilters() {
+            let filtered = [...leaderboardData];
+            
+            // Apply org filter
+            if (currentOrgFilter !== 'all') {
+                filtered = filtered.filter(d => d.org === currentOrgFilter);
+            }
+            
+            // Apply reasoning filter
+            if (currentReasoningFilter === 'high') {
+                filtered = filtered.filter(d => isHighReasoning(d.model));
+            } else if (currentReasoningFilter === 'low') {
+                filtered = filtered.filter(d => !isHighReasoning(d.model));
+            }
+            
+            currentData = filtered;
+            renderLeaderboard(currentData);
+        }
 
         function getScoreForCategory(item, category) {
             return { value: item[category], std: item[category + '_std'] };
@@ -910,20 +961,25 @@
             });
         });
 
-        // Filter functionality
-        document.querySelectorAll('.filter-btn').forEach(btn => {
+        // Org filter functionality
+        document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
             btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.filter-btn[data-filter]').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 
-                const filter = btn.dataset.filter;
-                if (filter === 'all') {
-                    currentData = [...leaderboardData];
-                } else {
-                    currentData = leaderboardData.filter(d => d.org === filter);
-                }
+                currentOrgFilter = btn.dataset.filter;
+                applyFilters();
+            });
+        });
+
+        // Reasoning filter functionality
+        document.querySelectorAll('.filter-btn[data-reasoning]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn[data-reasoning]').forEach(b => b.classList.remove('reasoning-active'));
+                btn.classList.add('reasoning-active');
                 
-                renderLeaderboard(currentData);
+                currentReasoningFilter = btn.dataset.reasoning;
+                applyFilters();
             });
         });
 
