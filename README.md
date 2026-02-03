@@ -8,7 +8,7 @@
 [![Leaderboard](https://img.shields.io/badge/Leaderboard-red.svg?style=for-the-badge)](https://www.clbench.com)
 [![Paper](https://img.shields.io/badge/Paper-Arxiv-blue.svg?style=for-the-badge)](clbench-paper.pdf)
 [![HuggingFace](https://img.shields.io/badge/Data-HF-yellow.svg?style=for-the-badge)](https://huggingface.co/datasets/tencent/CL-bench)
-[![Blog](https://img.shields.io/badge/Blog-green.svg?style=for-the-badge)](https://hy.tencent.com/research)
+[![Blog](https://img.shields.io/badge/Blog-green.svg?style=for-the-badge)](https://hy.tencent.com/research/100025?langVersion=en)
 
 </div>
 
