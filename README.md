@@ -12,7 +12,7 @@
 
 </div>
 
-CL-bench is a benchmark for evaluating language models' context learning, a foundational capability for enabling effective context utilization, advancing context engineering, and improving models’ intelligence and practicality.
+CL-bench represents a step towards building LMs with this fundamental capability, making them more intelligent and advancing their deployment in real-world scenarios.
 
 <p align="center">
   <img src="assets/four-concepts.png" alt="Four key concepts" width="70%">
