@@ -33,7 +33,7 @@ Such tasks almost cannot be solved by models that rely solely on static knowledg
 
 ## 🏆 Leaderboard
 
-You can find the full leaderboard at [clbench.com](https://www.clbench.com)!
+You can find the full leaderboard at [www.clbench.com](https://www.clbench.com)!
 
 ## ⭐ Key Features
 
