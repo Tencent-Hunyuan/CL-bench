@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CL-bench Leaderboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --primary-light: #a78bfa;
+            --bg: #0c0a1d;
+            --bg-card: #1a1730;
+            --bg-hover: #252140;
+            --text: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border: #2e2a4a;
+            --gold: #fbbf24;
+            --silver: #9ca3af;
+            --bronze: #d97706;
+            --green: #10b981;
+            --red: #ef4444;
+            --cyan: #22d3ee;
+        }
+
+        [data-theme="light"] {
+            --bg: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-hover: #f1f5f9;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(34, 211, 238, 0.06) 0%, transparent 50%);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 3rem 0;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .tagline {
+            font-size: 2rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto 2rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1rem 2rem;
+            background: var(--bg-card);
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+            min-width: 180px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-card);
+            border-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.2);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 1000;
+        }
+
+        .theme-toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.25rem;
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            border-color: var(--primary);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .theme-toggle-btn .icon-sun,
+        .theme-toggle-btn .icon-moon {
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .theme-toggle-btn .icon-sun {
+            display: none;
+        }
+
+        [data-theme="light"] .theme-toggle-btn .icon-sun {
+            display: block;
+        }
+
+        [data-theme="light"] .theme-toggle-btn .icon-moon {
+            display: none;
+        }
+
+        /* Leaderboard */
+        .leaderboard-section {
+            background: var(--bg-card);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        /* Category Tabs */
+        .category-tabs {
+            display: flex;
+            gap: 0.25rem;
+            padding: 1rem 1.5rem;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+        }
+
+        .category-tab {
+            padding: 0.75rem 1.25rem;
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-secondary);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            white-space: nowrap;
+            font-family: inherit;
+        }
+
+        .category-tab:hover {
+            color: var(--text);
+            background: var(--bg-card);
+        }
+
+        .category-tab.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .category-tab .tab-icon {
+            margin-right: 0.5rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-divider {
+            width: 1px;
+            height: 24px;
+            background: var(--border);
+            margin: 0 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .filter-btn.reasoning-active {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            border-color: #06b6d4;
+            color: white;
+        }
+
+        .filter-btn.reasoning-btn:hover:not(.reasoning-active) {
+            background: var(--bg-hover);
+            border-color: #06b6d4;
+            color: var(--text);
+        }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+        }
+
+        th {
+            background: var(--bg);
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        th:hover {
+            color: var(--text);
+        }
+
+        th .sort-icon {
+            margin-left: 0.25rem;
+            opacity: 0.5;
+        }
+
+        th.sorted .sort-icon {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        tr {
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s;
+        }
+
+        tbody tr:hover {
+            background: var(--bg-hover);
+        }
+
+        .rank {
+            font-weight: 700;
+            width: 60px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .rank-1 { color: var(--gold); }
+        .rank-2 { color: var(--silver); }
+        .rank-3 { color: var(--bronze); }
+
+        .model-name {
+            font-weight: 600;
+        }
+
+        .model-org {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .score {
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+            min-width: 300px;
+        }
+
+        .score-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.375rem;
+        }
+
+        .score-text {
+            display: flex;
+            align-items: baseline;
+            gap: 0.25rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .score-value {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .score-std {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .progress-wrapper {
+            position: relative;
+            width: 100%;
+            height: 12px;
+        }
+
+        .progress-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            border-radius: 3.5px;
+        }
+
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            border-radius: 3.5px;
+            transition: width 0.5s ease;
+        }
+
+        /* I-shaped error bar */
+        .error-bar-container {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .error-bar-line {
+            height: 2px;
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .error-bar-cap {
+            width: 2px;
+            height: 8px;
+            background: rgba(225, 219, 219, 0.85);
+            flex-shrink: 0;
+        }
+
+        [data-theme="light"] .error-bar-line {
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        [data-theme="light"] .error-bar-cap {
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        /* Color palette for different organizations */
+        .bar-openai { background: linear-gradient(90deg, #10a37f 0%, #0d8c6c 100%); }
+        .bar-anthropic { background: linear-gradient(90deg, #d97706 0%, #b45309 100%); }
+        .bar-google { background: linear-gradient(90deg, #8b5cf6 0%, #7c3aed 100%); }
+        .bar-alibaba { background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%); }
+        .bar-deepseek { background: linear-gradient(90deg, #06b6d4 0%, #0891b2 100%); }
+        .bar-moonshot { background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%); }
+        .bar-bytedance { background: linear-gradient(90deg, #ec4899 0%, #db2777 100%); }
+        .bar-tencent { background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%); }
+
+        /* Light mode: softer progress bars */
+        [data-theme="light"] .progress-bar {
+            opacity: 0.5;
+        }
+
+        [data-theme="light"] .mini-bar-fill {
+            opacity: 0.5;
+        }
+
+        /* Mini category bars for expanded view */
+        .mini-scores {
+            display: none;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+        }
+
+        .mini-scores.visible {
+            display: grid;
+        }
+
+        .mini-score {
+            background: var(--bg-card);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .mini-score-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .mini-score-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .mini-bar {
+            height: 4px;
+            background: var(--bg);
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .mini-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        /* About Section */
+        .about-section {
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .about-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .about-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .about-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .about-card p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0 0 0;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        footer a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Expand button */
+        .expand-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0.25rem;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        .expand-btn:hover {
+            color: var(--primary);
+        }
+
+        .expand-btn.expanded {
+            transform: rotate(180deg);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .stats {
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .stat {
+                padding: 0.75rem 1.25rem;
+            }
+
+            th, td {
+                padding: 0.75rem 1rem;
+            }
+
+            .category-tabs {
+                padding: 0.75rem 1rem;
+            }
+
+            .mini-scores {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle">
+        <button class="theme-toggle-btn" onclick="toggleTheme()" title="切换日间/夜间模式">
+            <span class="icon-moon">🌙</span>
+            <span class="icon-sun">☀️</span>
+        </button>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1 class="logo">🏆 CL-bench</h1>
+            <h2 class="tagline">A benchmark for Context Learning</h2>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value">1,899</div>
+                    <div class="stat-label">Tasks</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="model-count">19</div>
+                    <div class="stat-label">Models Evaluated</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Context Categories</div>
+                </div>
+            </div>
+
+            <nav style="margin-top: 2rem;">
+                <a href="https://huggingface.co/datasets/tencent/CL-bench" class="btn" target="_blank">
+                    🤗 Dataset
+                </a>
+                <a href="https://github.com/Tencent-Hunyuan/CL-bench" class="btn btn-outline" target="_blank">
+                    📦 GitHub
+                </a>
+                <a href="TBD" class="btn btn-outline" target="_blank">
+                    📄 Paper
+                </a>
+                <a href="https://hy.tencent.com/research" class="btn btn-outline" target="_blank">
+                    📝 Blog
+                </a>
+            </nav>
+        </header>
+
+        <section class="leaderboard-section">
+            <div class="section-header">
+                <h2 class="section-title">📊 Leaderboard</h2>
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="OpenAI">OpenAI</button>
+                    <button class="filter-btn" data-filter="Anthropic">Anthropic</button>
+                    <button class="filter-btn" data-filter="Google">Google</button>
+                    <button class="filter-btn" data-filter="Alibaba">Alibaba</button>
+                    <button class="filter-btn" data-filter="DeepSeek">DeepSeek</button>
+                    <button class="filter-btn" data-filter="Moonshot">Moonshot</button>
+                    <button class="filter-btn" data-filter="ByteDance">ByteDance</button>
+                    <button class="filter-btn" data-filter="Tencent">Tencent</button>
+                    <div class="filter-divider"></div>
+                    <button class="filter-btn reasoning-btn reasoning-active" data-reasoning="all">All</button>
+                    <button class="filter-btn reasoning-btn" data-reasoning="high">High Reasoning</button>
+                    <button class="filter-btn reasoning-btn" data-reasoning="low">Low/No Reasoning</button>
+                </div>
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="overall">
+                    <span class="tab-icon">📈</span>Overall
+                </button>
+                <button class="category-tab" data-category="domain">
+                    <span class="tab-icon">🧠</span>Domain Knowledge Reasoning
+                </button>
+                <button class="category-tab" data-category="rule">
+                    <span class="tab-icon">📜</span>Rule System Application
+                </button>
+                <button class="category-tab" data-category="procedural">
+                    <span class="tab-icon">⚙️</span>Procedural Task Execution
+                </button>
+                <button class="category-tab" data-category="pattern">
+                    <span class="tab-icon">🔬</span>Empirical Discovery & Simulation
+                </button>
+            </div>
+            
+            <div class="table-container">
+                <table id="leaderboard">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Model</th>
+                            <th>Organization</th>
+                            <th data-sort="score" id="score-header">Solving Rate (±std) <span class="sort-icon">↓</span></th>
+                            <th style="width: 40px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body">
+                        <!-- Data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="about-section">
+            <div class="about-card">
+                <h3>📋 About CL-bench</h3>
+                <p>CL-bench is a benchmark for evaluating language models' context learning. Solving tasks in CL-bench requires models to learn new knowledge from the provided context, rather than relying on pre-trained knowledge.</p>
+            </div>
+            <div class="about-card">
+                <h3>⚖️ Evaluation Method</h3>
+                <p>Model solutions are evaluated via instance-level rubrics and LM-as-a-judge. Each task contains an average of 16.6 rubrics, which evaluate solutions across multiple dimensions.</p>
+            </div>
+            <div class="about-card">
+                <h3>🔄 Submit Your Model</h3>
+                <p>Want to add your model? Download the dataset from Hugging Face, run inference and evaluation using our scripts, then submit a PR with your results.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>CL-bench © 2026 | <a href="https://github.com/Tencent-Hunyuan/CL-bench"  target="_blank">GitHub</a> | <a href="https://huggingface.co/datasets/tencent/CL-bench"  target="_blank">Hugging Face</a></p>
+            <p style="margin-top: 0.5rem;">Last updated: January 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            if (newTheme === 'dark') {
+                html.removeAttribute('data-theme');
+            } else {
+                html.setAttribute('data-theme', newTheme);
+            }
+            
+            // Save preference to localStorage
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme on page load
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+
+        // Complete leaderboard data with context category scores
+        const leaderboardData = [
+            { model: "GPT 5.1 (High)", org: "OpenAI", overall: 0.237, overall_std: 0.005, domain: 0.253, domain_std: 0.013, rule: 0.237, rule_std: 0.013, procedural: 0.238, procedural_std: 0.014, pattern: 0.181, pattern_std: 0.031 },
+            { model: "GPT 5.1", org: "OpenAI", overall: 0.211, overall_std: 0.002, domain: 0.224, domain_std: 0.007, rule: 0.210, rule_std: 0.007, procedural: 0.228, procedural_std: 0.013, pattern: 0.136, pattern_std: 0.010 },
+            { model: "Claude Opus 4.5 Thinking", org: "Anthropic", overall: 0.211, overall_std: 0.014, domain: 0.237, domain_std: 0.012, rule: 0.190, rule_std: 0.015, procedural: 0.226, procedural_std: 0.015, pattern: 0.151, pattern_std: 0.023 },
+            { model: "Claude Opus 4.5", org: "Anthropic", overall: 0.191, overall_std: 0.004, domain: 0.210, domain_std: 0.005, rule: 0.191, rule_std: 0.004, procedural: 0.195, procedural_std: 0.016, pattern: 0.114, pattern_std: 0.013 },
+            { model: "GPT 5.2 (High)", org: "OpenAI", overall: 0.181, overall_std: 0.008, domain: 0.186, domain_std: 0.009, rule: 0.172, rule_std: 0.013, procedural: 0.214, procedural_std: 0.011, pattern: 0.117, pattern_std: 0.018 },
+            { model: "GPT 5.2", org: "OpenAI", overall: 0.182, overall_std: 0.005, domain: 0.195, domain_std: 0.015, rule: 0.180, rule_std: 0.019, procedural: 0.191, procedural_std: 0.011, pattern: 0.121, pattern_std: 0.015 },
+            { model: "o3 (High)", org: "OpenAI", overall: 0.178, overall_std: 0.002, domain: 0.180, domain_std: 0.014, rule: 0.176, rule_std: 0.011, procedural: 0.195, procedural_std: 0.004, pattern: 0.137, pattern_std: 0.008 },
+            { model: "Kimi K2 Thinking", org: "Moonshot", overall: 0.176, overall_std: 0.006, domain: 0.187, domain_std: 0.006, rule: 0.170, rule_std: 0.015, procedural: 0.188, procedural_std: 0.007, pattern: 0.126, pattern_std: 0.040 },
+            { model: "HY 2.0 Thinking", org: "Tencent", overall: 0.172, overall_std: 0.006, domain: 0.180, domain_std: 0.010, rule: 0.173, rule_std: 0.005, procedural: 0.194, procedural_std: 0.011, pattern: 0.089, pattern_std: 0.003 },
+            { model: "Gemini 3 Pro (High)", org: "Google", overall: 0.158, overall_std: 0.003, domain: 0.155, domain_std: 0.011, rule: 0.177, rule_std: 0.017, procedural: 0.164, procedural_std: 0.016, pattern: 0.101, pattern_std: 0.031 },
+            { model: "HY 2.0", org: "Tencent", overall: 0.150, overall_std: 0.008, domain: 0.143, domain_std: 0.009, rule: 0.163, rule_std: 0.009, procedural: 0.173, procedural_std: 0.011, pattern: 0.085, pattern_std: 0.009 },
+            { model: "Gemini 3 Pro", org: "Google", overall: 0.148, overall_std: 0.004, domain: 0.139, domain_std: 0.003, rule: 0.165, rule_std: 0.007, procedural: 0.155, procedural_std: 0.014, pattern: 0.112, pattern_std: 0.010 },
+            { model: "Qwen 3 Max", org: "Alibaba", overall: 0.145, overall_std: 0.006, domain: 0.146, domain_std: 0.010, rule: 0.161, rule_std: 0.006, procedural: 0.149, procedural_std: 0.016, pattern: 0.089, pattern_std: 0.015 },
+            { model: "Qwen 3 Max Thinking", org: "Alibaba", overall: 0.141, overall_std: 0.001, domain: 0.135, domain_std: 0.005, rule: 0.156, rule_std: 0.010, procedural: 0.152, procedural_std: 0.014, pattern: 0.090, pattern_std: 0.010 },
+            { model: "Doubao 1.6 Thinking", org: "ByteDance", overall: 0.134, overall_std: 0.001, domain: 0.137, domain_std: 0.001, rule: 0.142, rule_std: 0.014, procedural: 0.139, procedural_std: 0.015, pattern: 0.094, pattern_std: 0.003 },
+            { model: "DeepSeek V3.2 Thinking", org: "DeepSeek", overall: 0.132, overall_std: 0.004, domain: 0.136, domain_std: 0.006, rule: 0.138, rule_std: 0.006, procedural: 0.142, procedural_std: 0.001, pattern: 0.080, pattern_std: 0.015 },
+            { model: "Doubao 1.6", org: "ByteDance", overall: 0.131, overall_std: 0.001, domain: 0.119, domain_std: 0.005, rule: 0.147, rule_std: 0.007, procedural: 0.151, procedural_std: 0.005, pattern: 0.079, pattern_std: 0.008 },
+            { model: "DeepSeek V3.2", org: "DeepSeek", overall: 0.124, overall_std: 0.005, domain: 0.123, domain_std: 0.008, rule: 0.134, rule_std: 0.010, procedural: 0.135, procedural_std: 0.004, pattern: 0.070, pattern_std: 0.005 },
+            { model: "Kimi K2", org: "Moonshot", overall: 0.119, overall_std: 0.005, domain: 0.123, domain_std: 0.011, rule: 0.127, rule_std: 0.005, procedural: 0.132, procedural_std: 0.011, pattern: 0.057, pattern_std: 0.008 },
+        ];
+
+        // Category display mapping
+        const categoryLabels = {
+            overall: "Overall",
+            domain: "Domain Knowledge Reasoning",
+            rule: "Rule System Application",
+            procedural: "Procedural Task Execution",
+            pattern: "Empirical Discovery & Simulation"
+        };
+
+        let currentData = [...leaderboardData];
+        let currentCategory = 'overall';
+        let sortColumn = 'score';
+        let sortDirection = 'desc';
+        let expandedRows = new Set();
+        let currentOrgFilter = 'all';
+        let currentReasoningFilter = 'all';
+
+        // Check if a model is high reasoning (has "Thinking" or "(High)" in name)
+        function isHighReasoning(modelName) {
+            return modelName.includes('Thinking') || modelName.includes('(High)');
+        }
+
+        // Apply both org and reasoning filters
+        function applyFilters() {
+            let filtered = [...leaderboardData];
+            
+            // Apply org filter
+            if (currentOrgFilter !== 'all') {
+                filtered = filtered.filter(d => d.org === currentOrgFilter);
+            }
+            
+            // Apply reasoning filter
+            if (currentReasoningFilter === 'high') {
+                filtered = filtered.filter(d => isHighReasoning(d.model));
+            } else if (currentReasoningFilter === 'low') {
+                filtered = filtered.filter(d => !isHighReasoning(d.model));
+            }
+            
+            currentData = filtered;
+            renderLeaderboard(currentData);
+        }
+
+        function getScoreForCategory(item, category) {
+            return { value: item[category], std: item[category + '_std'] };
+        }
+
+        function renderLeaderboard(data) {
+            const tbody = document.getElementById('leaderboard-body');
+            
+            // Sort data by current category score
+            data.sort((a, b) => {
+                const aVal = a[currentCategory];
+                const bVal = b[currentCategory];
+                
+                if (sortDirection === 'asc') {
+                    return aVal - bVal;
+                } else {
+                    return bVal - aVal;
+                }
+            });
+
+            // Max score for scaling (use 100% for accurate visualization)
+            const maxScore = 1.0;
+            
+            // Organization to color class mapping
+            const orgColorMap = {
+                'OpenAI': 'bar-openai',
+                'Anthropic': 'bar-anthropic',
+                'Google': 'bar-google',
+                'Alibaba': 'bar-alibaba',
+                'DeepSeek': 'bar-deepseek',
+                'Moonshot': 'bar-moonshot',
+                'ByteDance': 'bar-bytedance',
+                'Tencent': 'bar-tencent'
+            };
+
+            tbody.innerHTML = data.map((item, index) => {
+                const rank = index + 1;
+                const rankClass = rank <= 3 ? `rank-${rank}` : '';
+                const score = getScoreForCategory(item, currentCategory);
+                const barWidth = Math.min((score.value / maxScore) * 100, 100);
+                const stdWidth = (score.std / maxScore) * 100;
+                const errorBarLeft = Math.max(barWidth - stdWidth, 0);
+                const errorBarWidth = stdWidth * 2;
+                const barColorClass = orgColorMap[item.org] || 'bar-openai';
+                const isExpanded = expandedRows.has(item.model);
+                
+                // Mini scores for expanded view
+                const categories = ['domain', 'rule', 'procedural', 'pattern'];
+                const miniScoresHtml = categories.map(cat => {
+                    const catScore = getScoreForCategory(item, cat);
+                    const catBarWidth = Math.min((catScore.value / maxScore) * 100, 100);
+                    return `
+                        <div class="mini-score">
+                            <div class="mini-score-label">${categoryLabels[cat]}</div>
+                            <div class="mini-score-value">${(catScore.value * 100).toFixed(1)}% <span style="color: var(--text-secondary); font-size: 0.7rem;">±${(catScore.std * 100).toFixed(1)}%</span></div>
+                            <div class="mini-bar">
+                                <div class="mini-bar-fill ${barColorClass}" style="width: ${catBarWidth}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                return `
+                    <tr data-model="${item.model}">
+                        <td class="rank ${rankClass}">${rank}</td>
+                        <td class="model-name">${item.model}</td>
+                        <td class="model-org">${item.org}</td>
+                        <td class="score">
+                            <div class="score-container">
+                                <div class="score-text">
+                                    <span class="score-value">${(score.value * 100).toFixed(1)}%</span>
+                                    <span class="score-std">±${(score.std * 100).toFixed(1)}%</span>
+                                </div>
+                                <div class="progress-wrapper">
+                                    <div class="progress-bg"></div>
+                                    <div class="progress-bar ${barColorClass}" style="width: ${barWidth}%"></div>
+                                    <div class="error-bar-container" style="left: ${errorBarLeft}%; width: ${errorBarWidth}%">
+                                        <div class="error-bar-cap"></div>
+                                        <div class="error-bar-line" style="flex: 1"></div>
+                                        <div class="error-bar-cap"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <button class="expand-btn ${isExpanded ? 'expanded' : ''}" onclick="toggleExpand('${item.model}')">▼</button>
+                        </td>
+                    </tr>
+                    <tr class="mini-scores-row" data-model="${item.model}">
+                        <td colspan="5" style="padding: 0;">
+                            <div class="mini-scores ${isExpanded ? 'visible' : ''}">
+                                ${miniScoresHtml}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            document.getElementById('model-count').textContent = data.length;
+        }
+
+        function toggleExpand(modelName) {
+            if (expandedRows.has(modelName)) {
+                expandedRows.delete(modelName);
+            } else {
+                expandedRows.add(modelName);
+            }
+            renderLeaderboard(currentData);
+        }
+
+        // Category tab functionality
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                currentCategory = tab.dataset.category;
+                document.getElementById('score-header').innerHTML = `${categoryLabels[currentCategory]} (±std) <span class="sort-icon">↓</span>`;
+                
+                renderLeaderboard(currentData);
+            });
+        });
+
+        // Org filter functionality
+        document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn[data-filter]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                currentOrgFilter = btn.dataset.filter;
+                applyFilters();
+            });
+        });
+
+        // Reasoning filter functionality
+        document.querySelectorAll('.filter-btn[data-reasoning]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn[data-reasoning]').forEach(b => b.classList.remove('reasoning-active'));
+                btn.classList.add('reasoning-active');
+                
+                currentReasoningFilter = btn.dataset.reasoning;
+                applyFilters();
+            });
+        });
+
+        // Sort functionality
+        document.querySelectorAll('th[data-sort]').forEach(th => {
+            th.addEventListener('click', () => {
+                const column = th.dataset.sort;
+                
+                if (column === sortColumn) {
+                    sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+                } else {
+                    sortColumn = column;
+                    sortDirection = column === 'score' ? 'desc' : 'asc';
+                }
+                
+                // Update sort indicators
+                document.querySelectorAll('th').forEach(t => {
+                    t.classList.remove('sorted');
+                    const icon = t.querySelector('.sort-icon');
+                    if (icon) icon.textContent = '↕';
+                });
+                th.classList.add('sorted');
+                const icon = th.querySelector('.sort-icon');
+                if (icon) icon.textContent = sortDirection === 'asc' ? '↑' : '↓';
+                
+                renderLeaderboard(currentData);
+            });
+        });
+
+        // Initial render
+        renderLeaderboard(currentData);
+    </script>
+</body>
+</html>
