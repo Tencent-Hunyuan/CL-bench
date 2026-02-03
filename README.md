@@ -5,7 +5,7 @@
 <div align="center">
 <h1>CL-bench: A Benchmark for Context Learning</h1>
 
-[![Leaderboard](https://img.shields.io/badge/Leaderboard-red.svg?style=for-the-badge)](https://clbench.com)
+[![Leaderboard](https://img.shields.io/badge/Leaderboard-red.svg?style=for-the-badge)](https://www.clbench.com)
 [![Paper](https://img.shields.io/badge/Paper-Arxiv-blue.svg?style=for-the-badge)](clbench-paper.pdf)
 [![HuggingFace](https://img.shields.io/badge/Data-HF-yellow.svg?style=for-the-badge)](https://huggingface.co/datasets/tencent/CL-bench)
 [![Blog](https://img.shields.io/badge/Blog-green.svg?style=for-the-badge)](https://hy.tencent.com/research)
@@ -18,7 +18,7 @@ CL-bench is a benchmark for evaluating language models' context learning, a foun
   <img src="assets/four-concepts.png" alt="Four key concepts" width="70%">
 </p>
 
-*Figure 1: A comparison of four key concepts.*
+*Figure 1: Mismatch between how language models are commonly optimized in practice and the capabilities required by real-world tasks.*
 
 <br>
 
