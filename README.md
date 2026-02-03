@@ -5,7 +5,7 @@
 <div align="center">
 <h1>CL-bench: A Benchmark for Context Learning</h1>
 
-[![Leaderboard](https://img.shields.io/badge/Leaderboard-red.svg?style=for-the-badge)](clbench.com)
+[![Leaderboard](https://img.shields.io/badge/Leaderboard-red.svg?style=for-the-badge)](https://clbench.com)
 [![Paper](https://img.shields.io/badge/Paper-Arxiv-blue.svg?style=for-the-badge)](clbench-paper.pdf)
 [![HuggingFace](https://img.shields.io/badge/Data-HF-yellow.svg?style=for-the-badge)](https://huggingface.co/datasets/tencent/CL-bench)
 [![Blog](https://img.shields.io/badge/Blog-green.svg?style=for-the-badge)](https://hy.tencent.com/research)
@@ -33,7 +33,7 @@ Such tasks almost cannot be solved by models that rely solely on static knowledg
 
 ## 🏆 Leaderboard
 
-You can find the full leaderboard at [clbench.com](clbench.com)!
+You can find the full leaderboard at [clbench.com](https://clbench.com)!
 
 ## ⭐ Key Features
 
