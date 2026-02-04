@@ -183,11 +183,14 @@ Solving Rate = (Number of Score 1) / (Total Samples)
 If you like CL-bench and use it in your research, you can cite:
 
 ```bibtex
-@misc{dou2026clbench,
-  title={CL-bench: A Benchmark for Context Learning},
-  author={Shihan Dou and Ming Zhang and Zhangyue Yin and Chenhao Huang and Yujiong Shen and Junzhe Wang and Jiayi Chen and Yuchen Ni and Junjie Ye and Cheng Zhang and Huaibing Xie and Jianglu Hu and Shaolei Wang and Weichao Wang and Yanling Xiao and Yiting Liu and Zenan Xu and Zhen Guo and Pluto Zhou and Tao Gui and Zuxuan Wu and Xipeng Qiu and Qi Zhang and Xuanjing Huang and Yu-Gang Jiang and Di Wang and Shunyu Yao},
-  year={2026},
-  howpublished={\url{https://github.com/Tencent-Hunyuan/CL-bench}}
+@misc{dou2026clbenchbenchmarkcontextlearning,
+      title={CL-bench: A Benchmark for Context Learning}, 
+      author={Shihan Dou and Ming Zhang and Zhangyue Yin and Chenhao Huang and Yujiong Shen and Junzhe Wang and Jiayi Chen and Yuchen Ni and Junjie Ye and Cheng Zhang and Huaibing Xie and Jianglu Hu and Shaolei Wang and Weichao Wang and Yanling Xiao and Yiting Liu and Zenan Xu and Zhen Guo and Pluto Zhou and Tao Gui and Zuxuan Wu and Xipeng Qiu and Qi Zhang and Xuanjing Huang and Yu-Gang Jiang and Di Wang and Shunyu Yao},
+      year={2026},
+      eprint={2602.03587},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2602.03587}, 
 }
 ```
 
