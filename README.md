@@ -77,6 +77,7 @@ Each sample contains:
   ],
   "metadata": {
     "task_id": "unique-task-identifier",
+    "context_id": "unique-context-identifier",
     "context_category": "...",
     "sub_category": "..."
   }
