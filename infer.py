@@ -116,12 +116,12 @@ def process_single_case(args):
     if error:
         return idx, None, error
     
-    # Build output
     result = {
         "idx": idx,
         "messages": messages,
         "model_output": response_text,
-        "rubrics": item.get("rubrics", [])
+        "rubrics": item.get("rubrics", []),
+        "metadata": item.get("metadata", {})
     }
     
     return idx, result, None
@@ -178,8 +178,12 @@ def main():
         completed_indices = {item.get("idx") for item in existing_data if item.get("idx") is not None}
         log(f"📌 Found {len(completed_indices)} completed, resuming remaining")
     
+    # Use metadata.task_id as stable unique identifier
+    def get_task_id(item):
+        return item["metadata"]["task_id"]
+    
     # Filter pending tasks
-    tasks = [(item.get("idx", idx), item, client, args.model) for idx, item in enumerate(data) if item.get("idx", idx) not in completed_indices]
+    tasks = [(get_task_id(item), item, client, args.model) for item in data if get_task_id(item) not in completed_indices]
     
     if not tasks:
         log("✅ All samples already processed")
