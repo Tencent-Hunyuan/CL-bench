@@ -179,7 +179,7 @@ def main():
         log(f"📌 Found {len(completed_indices)} completed, resuming remaining")
     
     # Filter pending tasks
-    tasks = [(idx, item, client, args.model) for idx, item in enumerate(data) if idx not in completed_indices]
+    tasks = [(item.get("idx"), item, client, args.model) for item in data if item.get("idx") not in completed_indices]
     
     if not tasks:
         log("✅ All samples already processed")
