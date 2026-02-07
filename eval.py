@@ -158,10 +158,16 @@ def call_judge_api(client, model, rubrics_text, model_output, max_retries=3, ret
     return None
 
 
+def get_task_id(item):
+    """Get stable task id from item metadata, fallback to idx."""
+    metadata = item.get("metadata", {})
+    return metadata.get("task_id", item.get("idx", -1))
+
+
 def process_single_item(args):
     """Process a single item for grading."""
     item, client, judge_model, max_retries = args
-    idx = item.get("idx", -1)
+    idx = get_task_id(item)
     
     model_output = item.get("model_output", "")
     rubrics = item.get("rubrics", [])
@@ -170,6 +176,7 @@ def process_single_item(args):
     if not model_output or not model_output.strip():
         result = {
             **item,
+            "idx": idx,
             "grading_rationale": "No model output (counted as score 0)",
             "requirement_status": [],
             "score": 0
@@ -196,6 +203,7 @@ def process_single_item(args):
                 # All retries failed
                 result = {
                     **item,
+                    "idx": idx,
                     "grading_rationale": "API call failed (counted as score 0)",
                     "requirement_status": [],
                     "score": 0
@@ -213,6 +221,7 @@ def process_single_item(args):
             # Parse success
             result = {
                 **item,
+                "idx": idx,
                 "grading_rationale": result_json.get("Grading Rationale", ""),
                 "requirement_status": result_json.get("List of Requirement Satisfaction Status", []),
                 "score": result_json.get("Overall Score", "")
@@ -230,6 +239,7 @@ def process_single_item(args):
                 log(f"   ❌ [idx={idx}] JSON parse failed after {max_retries} attempts")
                 result = {
                     **item,
+                    "idx": idx,
                     "grading_rationale": f"JSON parse failed ({max_retries} attempts): {grading_result[:500]}",
                     "requirement_status": [],
                     "score": 0
@@ -239,6 +249,7 @@ def process_single_item(args):
     # Should not reach here
     result = {
         **item,
+        "idx": idx,
         "grading_rationale": "Unknown error (counted as score 0)",
         "requirement_status": [],
         "score": 0
@@ -293,11 +304,15 @@ def main():
     completed_indices = set()
     if os.path.exists(args.output):
         existing_data = load_jsonl(args.output)
-        completed_indices = {item.get("idx") for item in existing_data if item.get("idx") is not None}
+        completed_indices = {
+            get_task_id(item)
+            for item in existing_data
+            if get_task_id(item) is not None
+        }
         log(f"📌 Found {len(completed_indices)} completed, resuming remaining")
     
     # Filter pending tasks
-    pending_items = [item for item in data if item.get("idx") not in completed_indices]
+    pending_items = [item for item in data if get_task_id(item) not in completed_indices]
     
     if not pending_items:
         log("✅ All samples already evaluated")
@@ -374,6 +389,29 @@ def calculate_statistics(output_path):
     if total > 0:
         solving_rate = score_1 / total
         log(f"\n📈 Solving Rate: {solving_rate:.4f} ({score_1}/{total})")
+    
+    # Category-level scores
+    category_stats = {}
+    for item in data:
+        metadata = item.get("metadata", {})
+        category = metadata.get("context_category", "Unknown")
+        stats = category_stats.setdefault(category, {"total": 0, "score_0": 0, "score_1": 0})
+        stats["total"] += 1
+        if item.get("score") == 1:
+            stats["score_1"] += 1
+        else:
+            stats["score_0"] += 1
+    
+    if category_stats:
+        log("\n📂 Scores by context_category:")
+        for category in sorted(category_stats.keys()):
+            stats = category_stats[category]
+            rate = stats["score_1"] / stats["total"] if stats["total"] else 0
+            log(
+                f"   {category}: total={stats['total']}, "
+                f"score_1={stats['score_1']}, score_0={stats['score_0']}, "
+                f"rate={rate:.4f}"
+            )
     
     log("=" * 60)
 
