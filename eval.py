@@ -1,4 +1,4 @@
-"""Evaluation Script - Using OpenAI API for Grading
+"""Evaluation Script - Using OpenAI API or AWS Bedrock for Grading
 
 Use GPT or other LLMs as the judge to grade model outputs with binary scores (0/1).
 
@@ -13,8 +13,8 @@ Usage:
     # Using default OpenAI API
     python eval.py --input outputs/model_output.jsonl --output outputs/model_graded.jsonl
     
-    # Using other compatible APIs
-    python eval.py --input outputs/model_output.jsonl --base-url https://api.deepseek.com/v1 --api-key your_key
+    # Using AWS Bedrock (Claude)
+    python eval.py --input outputs/model_output.jsonl --judge-model anthropic.claude-3-5-sonnet-20241022-v2:0 --aws-region us-east-1
     
     # Concurrent evaluation
     python eval.py --input outputs/model_output.jsonl --workers 5
@@ -80,7 +80,7 @@ def call_judge_api(client, model, rubrics_text, model_output, max_retries=3, ret
     Call judge model API for grading (only handles API call, returns raw text).
     
     Args:
-        client: OpenAI client instance
+        client: OpenAI client or boto3 bedrock-runtime client
         model: Judge model name
         rubrics_text: Formatted rubrics text
         model_output: Model's response to be graded
@@ -125,15 +125,24 @@ def call_judge_api(client, model, rubrics_text, model_output, max_retries=3, ret
         "}\n"
     )
     
-    messages = [{"role": "user", "content": grading_prompt}]
+    # Auto-detect Bedrock from model name pattern
+    is_bedrock = '.' in model and (':' in model or model.startswith(('anthropic.', 'amazon.', 'meta.', 'mistral.', 'cohere.')))
     
     for attempt in range(max_retries):
         try:
-            response = client.chat.completions.create(
-                model=model,
-                messages=messages,
-            )
-            result_text = response.choices[0].message.content.strip()
+            if is_bedrock:
+                response = client.converse(
+                    modelId=model,
+                    messages=[{"role": "user", "content": [{"text": grading_prompt}]}]
+                )
+                result_text = response['output']['message']['content'][0]['text'].strip()
+            else:
+                messages = [{"role": "user", "content": grading_prompt}]
+                response = client.chat.completions.create(
+                    model=model,
+                    messages=messages,
+                )
+                result_text = response.choices[0].message.content.strip()
             
             # Remove code block wrapper if present
             if result_text.startswith("```json"):
@@ -261,9 +270,10 @@ def main():
     parser = argparse.ArgumentParser(description="Evaluation Script - OpenAI API Judge")
     parser.add_argument("--input", type=str, required=True, help="Input JSONL file path")
     parser.add_argument("--output", type=str, default=None, help="Output JSONL file path")
-    parser.add_argument("--judge-model", type=str, default="gpt-5.1", help="Judge model name")
-    parser.add_argument("--base-url", type=str, default=None, help="API Base URL (optional)")
-    parser.add_argument("--api-key", type=str, default=None, help="API Key (optional)")
+    parser.add_argument("--judge-model", type=str, default="gpt-5.1", help="Judge model name (OpenAI: gpt-5.1, Bedrock: anthropic.claude-3-5-sonnet-20241022-v2:0)")
+    parser.add_argument("--aws-region", type=str, default="us-east-1", help="AWS region (for Bedrock models only)")
+    parser.add_argument("--base-url", type=str, default=None, help="API Base URL (for OpenAI-compatible APIs only)")
+    parser.add_argument("--api-key", type=str, default=None, help="API Key (for OpenAI-compatible APIs only)")
     parser.add_argument("--workers", type=int, default=1, help="Number of concurrent workers")
     parser.add_argument("--max-retries", type=int, default=3, help="Max retries per item")
     args = parser.parse_args()
@@ -282,18 +292,31 @@ def main():
     log(f"⚡ Workers: {args.workers}")
     log("=" * 60)
     
-    # Initialize OpenAI client
-    api_key = args.api_key or os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        log("❌ Error: Please set OPENAI_API_KEY or use --api-key argument")
-        return
+    # Auto-detect Bedrock from model name
+    is_bedrock = '.' in args.judge_model and (':' in args.judge_model or args.judge_model.startswith(('anthropic.', 'amazon.', 'meta.', 'mistral.', 'cohere.')))
     
-    client_kwargs = {"api_key": api_key}
-    if args.base_url:
-        client_kwargs["base_url"] = args.base_url
-        log(f"🔗 Using custom API: {args.base_url}")
-    
-    client = OpenAI(**client_kwargs)
+    # Initialize client
+    if is_bedrock:
+        try:
+            import boto3
+        except ImportError:
+            log("❌ Error: boto3 not installed. Run: pip install boto3")
+            return
+        
+        client = boto3.client('bedrock-runtime', region_name=args.aws_region)
+        log(f"🔗 Using AWS Bedrock in region: {args.aws_region}")
+    else:
+        api_key = args.api_key or os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            log("❌ Error: Please set OPENAI_API_KEY or use --api-key argument")
+            return
+        
+        client_kwargs = {"api_key": api_key}
+        if args.base_url:
+            client_kwargs["base_url"] = args.base_url
+            log(f"🔗 Using custom API: {args.base_url}")
+        
+        client = OpenAI(**client_kwargs)
     
     # Load data
     log("📖 Loading data...")
