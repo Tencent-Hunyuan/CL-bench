@@ -1,0 +1,1 @@
+{"idx":"mock-task-1","messages":[{"role":"user","content":"mock question"}],"model_output":"mock answer","rubrics":["must mention x"],"metadata":{"task_id":"mock-task-1","context_id":"mock-ctx","context_category":"Mock","sub_category":"Mock"}}
