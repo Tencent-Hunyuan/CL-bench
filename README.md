@@ -24,10 +24,10 @@
 
 ## CL-bench
 
-[![Paper](https://img.shields.io/badge/Paper-Arxiv-blue.svg?style=for-the-badge)](https://arxiv.org/abs/2602.03587)
-[![HuggingFace](https://img.shields.io/badge/Data-HF-yellow.svg?style=for-the-badge)](https://huggingface.co/datasets/tencent/CL-bench)
-[![Blog](https://img.shields.io/badge/Blog-green.svg?style=for-the-badge)](https://hy.tencent.com/research/100025?langVersion=en)
-[![Leaderboard](https://img.shields.io/badge/Leaderboard-red.svg?style=for-the-badge)](https://www.clbench.com)
+[![Paper](https://img.shields.io/badge/Paper-arXiv:2602.03587-blue.svg?style=flat-square)](https://arxiv.org/abs/2602.03587)
+[![Data](https://img.shields.io/badge/Data-HuggingFace-yellow.svg?style=flat-square)](https://huggingface.co/datasets/tencent/CL-bench)
+[![Blog](https://img.shields.io/badge/Blog-Tencent-green.svg?style=flat-square)](https://hy.tencent.com/research/100025?langVersion=en)
+[![Leaderboard](https://img.shields.io/badge/Leaderboard-www.clbench.com-red.svg?style=flat-square)](https://www.clbench.com)
 
 CL-bench evaluates whether language models can learn new knowledge from context at inference time. Tasks require models to learn from domain-specific knowledge, rule systems, complex procedures, and empirical laws — all absent from pre-training.
 
@@ -55,9 +55,9 @@ CL-bench evaluates whether language models can learn new knowledge from context 
 
 ## CLBench-life
 
-[![Paper](https://img.shields.io/badge/Paper-PDF-blue.svg?style=for-the-badge)](clbench-life-paper.pdf)
-[![HuggingFace](https://img.shields.io/badge/Data-HF-yellow.svg?style=for-the-badge)](https://huggingface.co/datasets/tencent/CLBench-life)
-[![Leaderboard](https://img.shields.io/badge/Leaderboard-red.svg?style=for-the-badge)](https://www.clbench.com)
+[![Paper](https://img.shields.io/badge/Paper-PDF-blue.svg?style=flat-square)](clbench-life-paper.pdf)
+[![Data](https://img.shields.io/badge/Data-HuggingFace-yellow.svg?style=flat-square)](https://huggingface.co/datasets/tencent/CLBench-life)
+[![Leaderboard](https://img.shields.io/badge/Leaderboard-www.clbench.com-red.svg?style=flat-square)](https://www.clbench.com)
 
 CLBench-life extends context learning evaluation to real-life scenarios. Contexts are messy, fragmented, and grounded in everyday experience — the kind of data people actually deal with daily. Even the best model (GPT-5.4) solves only 19.3%, with an average of 13% across 10 frontier models.
 
