@@ -5,21 +5,18 @@
 
 [![Website](https://img.shields.io/badge/Website-www.clbench.com-black.svg?style=flat-square)](https://www.clbench.com)
 
-
-
 </div>
 
-## 🔥🔥🔥 News!!
+## 🔥 News!!
 
 - **2025.07**: 🎉 [CLBench-life](#clbench-life) released — 500 real-life context learning tasks (group chats, personal notes, game logs, etc.) with 5,348 rubrics. Best model solves 19.3%. [[Paper]](clbench-life-paper.pdf) [[Data]](https://huggingface.co/datasets/tencent/CLBench-life)
-- **2026.02**: 🎉 [CL-bench](#cl-bench) released — 1,899 professional & domain-specific context learning tasks. Best model solves 23.7%. [[Paper]](https://arxiv.org/abs/2602.03587) [[Data]](https://huggingface.co/datasets/tencent/CL-bench) [[Blog]](https://hy.tencent.com/research/100025?langVersion=en)
+- **2026.02**: 🎉 [CL-bench](#cl-bench-1) released — 1,899 professional & domain-specific context learning tasks. Best model solves 23.7%. [[Paper]](https://arxiv.org/abs/2602.03587) [[Data]](https://huggingface.co/datasets/tencent/CL-bench) [[Blog]](https://hy.tencent.com/research/100025?langVersion=en)
 
 ## Contents
 
-- [CL-bench](#cl-bench) — Professional & domain-specific context learning
+- [CL-bench](#cl-bench-1) — Professional & domain-specific context learning
 - [CLBench-life](#clbench-life) — Real-life context learning
 - [Quick Start](#-quick-start)
-- [Evaluation](#-evaluation)
 - [Citation](#-citation)
 - [Contact](#-contact)
 
@@ -27,8 +24,10 @@
 
 ## CL-bench
 
-[![Paper](https://img.shields.io/badge/Paper-arXiv:2602.03587-blue.svg?style=flat-square)](https://arxiv.org/abs/2602.03587)
-[![HuggingFace](https://img.shields.io/badge/🤗_Data-CL--bench-yellow.svg?style=flat-square)](https://huggingface.co/datasets/tencent/CL-bench)
+[![Paper](https://img.shields.io/badge/Paper-Arxiv-blue.svg?style=for-the-badge)](https://arxiv.org/abs/2602.03587)
+[![HuggingFace](https://img.shields.io/badge/Data-HF-yellow.svg?style=for-the-badge)](https://huggingface.co/datasets/tencent/CL-bench)
+[![Blog](https://img.shields.io/badge/Blog-green.svg?style=for-the-badge)](https://hy.tencent.com/research/100025?langVersion=en)
+[![Leaderboard](https://img.shields.io/badge/Leaderboard-red.svg?style=for-the-badge)](https://www.clbench.com)
 
 CL-bench evaluates whether language models can learn new knowledge from context at inference time. Tasks require models to learn from domain-specific knowledge, rule systems, complex procedures, and empirical laws — all absent from pre-training.
 
@@ -52,14 +51,13 @@ CL-bench evaluates whether language models can learn new knowledge from context 
 - **Procedural Task Execution** — complex multi-step procedures to follow
 - **Empirical Discovery & Simulation** — patterns and laws derived from empirical data
 
-**Leaderboard**: [www.clbench.com](https://www.clbench.com) · **Dataset**: [🤗 tencent/CL-bench](https://huggingface.co/datasets/tencent/CL-bench)
-
 ---
 
 ## CLBench-life
 
-[![HuggingFace](https://img.shields.io/badge/🤗_Data-CLBench--life-yellow.svg?style=flat-square)](https://huggingface.co/datasets/tencent/CLBench-life)
-
+[![Paper](https://img.shields.io/badge/Paper-PDF-blue.svg?style=for-the-badge)](clbench-life-paper.pdf)
+[![HuggingFace](https://img.shields.io/badge/Data-HF-yellow.svg?style=for-the-badge)](https://huggingface.co/datasets/tencent/CLBench-life)
+[![Leaderboard](https://img.shields.io/badge/Leaderboard-red.svg?style=for-the-badge)](https://www.clbench.com)
 
 CLBench-life extends context learning evaluation to real-life scenarios. Contexts are messy, fragmented, and grounded in everyday experience — the kind of data people actually deal with daily. Even the best model (GPT-5.4) solves only 19.3%, with an average of 13% across 10 frontier models.
 
@@ -72,17 +70,9 @@ CLBench-life extends context learning evaluation to real-life scenarios. Context
 **Stats**: 500 context-task pairs · 5,348 rubrics (avg. 10.7 per task) · 3 categories · 9 sub-categories
 
 **Context Categories**:
-
 - **Communication & Social Interactions** — group chats, meeting transcripts, private conversations, community threads
 - **Fragmented Information & Revisions** — personal notes, news feeds, document edit histories, version logs
 - **Behavioral Records & Activity Trails** — game logs, browsing histories, transactions, fitness/health tracking
-
-**Results** (reasoning mode, mean±std across 3 runs):
-
-
-
-
-**Leaderboard**: [www.clbench.com](https://www.clbench.com) · **Dataset**: [🤗 tencent/CLBench-life](https://huggingface.co/datasets/tencent/CLBench-life)
 
 ---
 
@@ -103,7 +93,10 @@ Download datasets from HuggingFace:
 ```bash
 export OPENAI_API_KEY="your_api_key"
 
+# CL-bench
 python infer.py --model <model_name> --input CL-bench.jsonl --workers 20
+
+# CLBench-life
 python infer.py --model <model_name> --input CLBench-life.jsonl --workers 20
 
 # For non-OpenAI models, specify base URL and API key
@@ -118,10 +111,6 @@ python infer.py --model <model_name> \
 CL-bench uses GPT-5.1 (low reasoning effort) as the default judge; CLBench-life uses GPT-5.1 (high reasoning effort).
 
 ```bash
-# CL-bench
-python eval.py --input outputs/<model_output>.jsonl --judge-model gpt-5.1
-
-# CLBench-life
 python eval.py --input outputs/<model_output>.jsonl --judge-model gpt-5.1
 ```
 
