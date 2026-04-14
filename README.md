@@ -170,8 +170,6 @@ Want to add your model to the leaderboard? Run inference and evaluation using th
 
 Shihan Dou — shihandou@foxmail.com
 
----
-
 <div align="center">
 <sub>Copyright © 2025-2026 Tencent Hunyuan Team & Fudan NLP Group. All rights reserved.</sub>
 </div>
