@@ -61,13 +61,14 @@ CL-bench evaluates whether language models can learn new knowledge from context 
 
 CLBench-life extends context learning evaluation to real-life scenarios. Contexts are messy, fragmented, and grounded in everyday experience — the kind of data people actually deal with daily. Even the best model (GPT-5.4) solves only 19.3%, with an average of 13% across 10 frontier models.
 
-<!--
+
+
 <p align="center">
   <img src="assets/life-task.png" alt="CLBench-life Overview" width="80%">
 </p>
--->
 
-**Stats**: 500 context-task pairs · 5,348 rubrics (avg. 10.7 per task) · 3 categories · 9 sub-categories
+
+**Stats**: 405 context-task pairs · 5,348 rubrics (avg. 10.7 per task) · 3 categories · 9 sub-categories
 
 **Context Categories**:
 - **Communication & Social Interactions** — group chats, meeting transcripts, private conversations, community threads
