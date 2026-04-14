@@ -467,6 +467,7 @@
         .bar-moonshot { background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%); }
         .bar-bytedance { background: linear-gradient(90deg, #ec4899 0%, #db2777 100%); }
         .bar-tencent { background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%); }
+        .bar-mininglamp { background: linear-gradient(90deg, #f97316 0%, #ea580c 100%); }
 
         /* Light mode: softer progress bars */
         [data-theme="light"] .progress-bar {
@@ -684,6 +685,7 @@
                     <button class="filter-btn" data-filter="Moonshot">Moonshot</button>
                     <button class="filter-btn" data-filter="ByteDance">ByteDance</button>
                     <button class="filter-btn" data-filter="Tencent">Tencent</button>
+                    <button class="filter-btn" data-filter="Mininglamp">Mininglamp</button>
                     <div class="filter-divider"></div>
                     <button class="filter-btn reasoning-btn reasoning-active" data-reasoning="all">All</button>
                     <button class="filter-btn reasoning-btn" data-reasoning="high">High Reasoning</button>
@@ -795,6 +797,7 @@
             { model: "Doubao 1.6", org: "ByteDance", overall: 0.131, overall_std: 0.001, domain: 0.119, domain_std: 0.005, rule: 0.147, rule_std: 0.007, procedural: 0.151, procedural_std: 0.005, pattern: 0.079, pattern_std: 0.008 },
             { model: "DeepSeek V3.2", org: "DeepSeek", overall: 0.124, overall_std: 0.005, domain: 0.123, domain_std: 0.008, rule: 0.134, rule_std: 0.010, procedural: 0.135, procedural_std: 0.004, pattern: 0.070, pattern_std: 0.005 },
             { model: "Kimi K2", org: "Moonshot", overall: 0.119, overall_std: 0.005, domain: 0.123, domain_std: 0.011, rule: 0.127, rule_std: 0.005, procedural: 0.132, procedural_std: 0.011, pattern: 0.057, pattern_std: 0.008 },
+            { model: "Polyphony", org: "Mininglamp", overall: 0.234, overall_std: 0.004, domain: 0.251, domain_std: 0.010, rule: 0.227, rule_std: 0.005, procedural: 0.267, procedural_std: 0.009, pattern: 0.117, pattern_std: 0.006 },
         ];
 
         // Category display mapping
@@ -870,7 +873,8 @@
                 'DeepSeek': 'bar-deepseek',
                 'Moonshot': 'bar-moonshot',
                 'ByteDance': 'bar-bytedance',
-                'Tencent': 'bar-tencent'
+                'Tencent': 'bar-tencent',
+                'Mininglamp': 'bar-mininglamp'
             };
 
             tbody.innerHTML = data.map((item, index) => {
