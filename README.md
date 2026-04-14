@@ -17,6 +17,7 @@
 - [CL-bench](#cl-bench-1) — Professional & domain-specific context learning
 - [CLBench-life](#clbench-life) — Real-life context learning
 - [Quick Start](#-quick-start)
+- [Submit Results](#-submit-results)
 - [Citation](#-citation)
 - [Contact](#-contact)
 
@@ -139,6 +140,12 @@ Both datasets use the same JSONL format:
 
 ---
 
+## 📮 Submit Results
+
+Want to add your model to the leaderboard? Run inference and evaluation using the scripts above, then submit a PR to this repo with your graded result file (`*_graded.jsonl`). We will verify the results and update the leaderboard.
+
+---
+
 ## 📝 Citation
 
 ```bibtex
@@ -162,3 +169,9 @@ Both datasets use the same JSONL format:
 ## 📮 Contact
 
 Shihan Dou — shihandou@foxmail.com
+
+---
+
+<div align="center">
+<sub>Copyright © 2025-2026 Tencent Hunyuan Team & Fudan NLP Group. All rights reserved.</sub>
+</div>
