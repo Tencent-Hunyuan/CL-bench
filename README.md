@@ -1,32 +1,92 @@
 <div align="center">
+<img src="assets/hunyuan.png" alt="Tencent-Hunyuan" width="150"/>
 
-<img src="assets/hunyuan.png" alt="Tencent-Hunyuan" width="120"/>
+# CL-bench: A Benchmark for Context Learning
 
-# Context Learning
+[![Website](https://img.shields.io/badge/Website-www.clbench.com-black.svg?style=flat-square)](https://www.clbench.com)
 
-[![Leaderboard](https://img.shields.io/badge/Leaderboard-www.clbench.com-black.svg?style=flat-square)](https://www.clbench.com)
+
 
 </div>
 
-Real-world tasks require models to acquire and apply new knowledge from context at inference time, rather than relying solely on pre-trained knowledge. We study this capability — **context learning** — and build benchmarks to measure it.
+## 🔥🔥🔥 News!!
+
+- **2025.07**: 🎉 [CLBench-life](#clbench-life) released — 500 real-life context learning tasks (group chats, personal notes, game logs, etc.) with 5,348 rubrics. Best model solves 19.3%. [[Paper]](clbench-life-paper.pdf) [[Data]](https://huggingface.co/datasets/tencent/CLBench-life)
+- **2026.02**: 🎉 [CL-bench](#cl-bench) released — 1,899 professional & domain-specific context learning tasks. Best model solves 23.7%. [[Paper]](https://arxiv.org/abs/2602.03587) [[Data]](https://huggingface.co/datasets/tencent/CL-bench) [[Blog]](https://hy.tencent.com/research/100025?langVersion=en)
+
+## Contents
+
+- [CL-bench](#cl-bench) — Professional & domain-specific context learning
+- [CLBench-life](#clbench-life) — Real-life context learning
+- [Quick Start](#-quick-start)
+- [Evaluation](#-evaluation)
+- [Citation](#-citation)
+- [Contact](#-contact)
 
 ---
 
-> **CLBench-life** &nbsp; Real-life context learning &nbsp;·&nbsp; 500 tasks &nbsp;·&nbsp; 5,348 rubrics &nbsp;·&nbsp; NeurIPS 2025
->
-> Group chats, personal notes, browsing histories, game logs — messy everyday contexts that current models still struggle with. Best model solves 19.3%.
->
-> [Paper](clbench-life-paper.pdf) &nbsp;·&nbsp; [Data](https://huggingface.co/datasets/tencent/CLBench-life) &nbsp;·&nbsp; [Documentation](CLBench-life.md)
+## CL-bench
 
-> **CL-bench** &nbsp; Professional & domain-specific context learning &nbsp;·&nbsp; 1,899 tasks
->
-> Domain knowledge, rule systems, complex procedures, empirical discovery — contexts absent from pre-training. Best model solves 23.7%.
->
-> [Paper](https://arxiv.org/abs/2602.03587) &nbsp;·&nbsp; [Data](https://huggingface.co/datasets/tencent/CL-bench) &nbsp;·&nbsp; [Blog](https://hy.tencent.com/research/100025?langVersion=en) &nbsp;·&nbsp; [Documentation](CL-bench.md)
+[![Paper](https://img.shields.io/badge/Paper-arXiv:2602.03587-blue.svg?style=flat-square)](https://arxiv.org/abs/2602.03587)
+[![HuggingFace](https://img.shields.io/badge/🤗_Data-CL--bench-yellow.svg?style=flat-square)](https://huggingface.co/datasets/tencent/CL-bench)
+
+CL-bench evaluates whether language models can learn new knowledge from context at inference time. Tasks require models to learn from domain-specific knowledge, rule systems, complex procedures, and empirical laws — all absent from pre-training.
+
+<p align="center">
+  <img src="assets/four-concepts.png" alt="Four key concepts" width="70%">
+</p>
+
+*Mismatch between how language models are commonly optimized in practice and the capabilities required by real-world tasks.*
+
+<p align="center">
+  <img src="assets/task.png" alt="CL-bench Overview" width="80%">
+</p>
+
+*Each instance in CL-bench comprises a system prompt, a task, the context containing new knowledge necessary for solving the task, and rubrics to assess the solution. All instances are annotated by experienced domain experts.*
+
+**Stats**: 1,899 tasks · 4 categories · 18 sub-categories · avg. 63.2 rubrics per context · avg. 20 hours expert effort per context
+
+**Context Categories**:
+- **Domain Knowledge Reasoning** — specialized domain knowledge requiring understanding and application
+- **Rule System Application** — formal rule systems that must be learned and correctly applied
+- **Procedural Task Execution** — complex multi-step procedures to follow
+- **Empirical Discovery & Simulation** — patterns and laws derived from empirical data
+
+**Leaderboard**: [www.clbench.com](https://www.clbench.com) · **Dataset**: [🤗 tencent/CL-bench](https://huggingface.co/datasets/tencent/CL-bench)
 
 ---
 
-## Quick Start
+## CLBench-life
+
+[![HuggingFace](https://img.shields.io/badge/🤗_Data-CLBench--life-yellow.svg?style=flat-square)](https://huggingface.co/datasets/tencent/CLBench-life)
+
+
+CLBench-life extends context learning evaluation to real-life scenarios. Contexts are messy, fragmented, and grounded in everyday experience — the kind of data people actually deal with daily. Even the best model (GPT-5.4) solves only 19.3%, with an average of 13% across 10 frontier models.
+
+<!--
+<p align="center">
+  <img src="assets/life-task.png" alt="CLBench-life Overview" width="80%">
+</p>
+-->
+
+**Stats**: 500 context-task pairs · 5,348 rubrics (avg. 10.7 per task) · 3 categories · 9 sub-categories
+
+**Context Categories**:
+
+- **Communication & Social Interactions** — group chats, meeting transcripts, private conversations, community threads
+- **Fragmented Information & Revisions** — personal notes, news feeds, document edit histories, version logs
+- **Behavioral Records & Activity Trails** — game logs, browsing histories, transactions, fitness/health tracking
+
+**Results** (reasoning mode, mean±std across 3 runs):
+
+
+
+
+**Leaderboard**: [www.clbench.com](https://www.clbench.com) · **Dataset**: [🤗 tencent/CLBench-life](https://huggingface.co/datasets/tencent/CLBench-life)
+
+---
+
+## 🚀 Quick Start
 
 Both benchmarks share the same evaluation pipeline — just point to different input files.
 
@@ -43,34 +103,53 @@ Download datasets from HuggingFace:
 ```bash
 export OPENAI_API_KEY="your_api_key"
 
-python infer.py --model gpt-5.1 --input CL-bench.jsonl --workers 20
-python infer.py --model gpt-5.1 --input CLBench-life.jsonl --workers 20
+python infer.py --model <model_name> --input CL-bench.jsonl --workers 20
+python infer.py --model <model_name> --input CLBench-life.jsonl --workers 20
 
-# Other OpenAI-compatible APIs
-python infer.py --model deepseek-chat \
-    --base-url https://api.deepseek.com/v1 \
-    --api-key your_deepseek_key \
+# For non-OpenAI models, specify base URL and API key
+python infer.py --model <model_name> \
+    --base-url <api_base_url> \
+    --api-key <api_key> \
     --input CL-bench.jsonl
 ```
 
 ### Evaluation
 
+CL-bench uses GPT-5.1 (low reasoning effort) as the default judge; CLBench-life uses GPT-5.1 (high reasoning effort).
+
 ```bash
-python eval.py --input outputs/gpt-5.1.jsonl --judge-model gpt-5.1
+# CL-bench
+python eval.py --input outputs/<model_output>.jsonl --judge-model gpt-5.1
+
+# CLBench-life
+python eval.py --input outputs/<model_output>.jsonl --judge-model gpt-5.1
 ```
 
-<details>
-<summary>Script options</summary>
+Evaluation is binary: a task is solved only if the model's response passes **all** associated rubrics. For reasoning models, only the final solution is evaluated; thinking traces are excluded.
 
-**infer.py** — `--model`, `--input`, `--output`, `--base-url`, `--api-key`, `--workers`, `--max-samples`
+### Data Structure
 
-**eval.py** — `--input`, `--output`, `--judge-model`, `--base-url`, `--api-key`, `--workers`
+Both datasets use the same JSONL format:
 
-</details>
+```json
+{
+  "messages": [
+    {"role": "system", "content": "..."},
+    {"role": "user", "content": "..."},
+    {"role": "assistant", "content": "..."}
+  ],
+  "rubrics": ["Rubric 1", "Rubric 2", "..."],
+  "metadata": {
+    "task_id": "unique-task-identifier",
+    "context_id": "unique-context-identifier",
+    "context_category": "..."
+  }
+}
+```
 
 ---
 
-## Citation
+## 📝 Citation
 
 ```bibtex
 @misc{dou2026clbenchbenchmarkcontextlearning,
@@ -83,14 +162,13 @@ python eval.py --input outputs/gpt-5.1.jsonl --judge-model gpt-5.1
       url={https://arxiv.org/abs/2602.03587}, 
 }
 
-@inproceedings{clbenchlife2025,
+@article{clbenchlife2025,
       title={CLBench-life: Can Language Models Learn from Real-Life Context?},
-      author={Shihan Dou and Ming Zhang and others},
-      booktitle={Thirty-ninth Conference on Neural Information Processing Systems (NeurIPS)},
+      author={},
       year={2025},
 }
 ```
 
-## Contact
+## 📮 Contact
 
-Shihan Dou — shihandou@foxmail.com &nbsp;·&nbsp; Ming Zhang — mingzhang23@m.fudan.edu.cn
+Shihan Dou — shihandou@foxmail.com
