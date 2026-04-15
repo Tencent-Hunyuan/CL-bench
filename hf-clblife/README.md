@@ -19,7 +19,6 @@ tags:
 ## Dataset Description
 
 **CLBench-life** extends context learning evaluation to real-life scenarios. Unlike professional/domain-specific benchmarks, CLBench-life contexts are messy, fragmented, and grounded in everyday experience, reflecting the kind of data people actually deal with daily.
-Even the best model (GPT-5.4) solves only 19.3%, with an average of 13% across 10 frontier models.
 
 CLBench-life is part of the **CL-bench family** of benchmarks for context learning.
 
