@@ -1,11 +1,10 @@
 <div align="center">
 <img src="assets/hunyuan.png" alt="Tencent-Hunyuan" width="150"/>
+</div>
 
 # CL-bench family: A series of benchmarks for Context Learning
 
 [![Website](https://img.shields.io/badge/Website-www.clbench.com-black.svg?style=flat-square)](https://www.clbench.com)
-
-</div>
 
 ## 🔥 News!!
 
