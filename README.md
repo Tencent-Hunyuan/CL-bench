@@ -1,7 +1,7 @@
 <div align="center">
 <img src="assets/hunyuan.png" alt="Tencent-Hunyuan" width="150"/>
 
-# CL-bench: A Benchmark for Context Learning
+# CL-bench family: A series of benchmarks for Context Learning
 
 [![Website](https://img.shields.io/badge/Website-www.clbench.com-black.svg?style=flat-square)](https://www.clbench.com)
 
@@ -9,7 +9,7 @@
 
 ## 🔥 News!!
 
-- **2025.07**: 🎉 [CLBench-life](#clbench-life) released — 500 real-life context learning tasks (group chats, personal notes, game logs, etc.) with 5,348 rubrics. Best model solves 19.3%. [[Paper]](clbench-life-paper.pdf) [[Data]](https://huggingface.co/datasets/tencent/CLBench-life)
+- **2025.07**: 🎉 [CLBench-life](#clbench-life) released — 405 real-life context learning tasks (group chats, personal notes, game logs, etc.) with 5,348 rubrics. Best model solves 19.3%. [[Paper]](clbench-life-paper.pdf) [[Data]](https://huggingface.co/datasets/tencent/CLBench-life)
 - **2026.02**: 🎉 [CL-bench](#cl-bench-1) released — 1,899 professional & domain-specific context learning tasks. Best model solves 23.7%. [[Paper]](https://arxiv.org/abs/2602.03587) [[Data]](https://huggingface.co/datasets/tencent/CL-bench) [[Blog]](https://hy.tencent.com/research/100025?langVersion=en)
 
 ## Contents
@@ -113,7 +113,11 @@ python infer.py --model <model_name> \
 CL-bench uses GPT-5.1 (low reasoning effort) as the default judge; CLBench-life uses GPT-5.1 (high reasoning effort).
 
 ```bash
-python eval.py --input outputs/<model_output>.jsonl --judge-model gpt-5.1
+# CL-bench (low reasoning effort)
+python eval.py --input outputs/<model_output>.jsonl --judge-model gpt-5.1 --reasoning-effort low
+
+# CLBench-life (high reasoning effort)
+python eval.py --input outputs/<model_output>.jsonl --judge-model gpt-5.1 --reasoning-effort high
 ```
 
 Evaluation is binary: a task is solved only if the model's response passes **all** associated rubrics. For reasoning models, only the final solution is evaluated; thinking traces are excluded.
@@ -132,7 +136,6 @@ Both datasets use the same JSONL format:
   "rubrics": ["Rubric 1", "Rubric 2", "..."],
   "metadata": {
     "task_id": "unique-task-identifier",
-    "context_id": "unique-context-identifier",
     "context_category": "..."
   }
 }
