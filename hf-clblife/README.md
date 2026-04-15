@@ -101,11 +101,6 @@ A list of strings, each describing a specific evaluation rubric.
 
 Please see our **GitHub repository**: [github.com/Tencent-Hunyuan/CL-bench](https://github.com/Tencent-Hunyuan/CL-bench)
 
-### Quick Start
-
-```bash
-pip install openai tqdm
-```
 
 ## License
 

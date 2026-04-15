@@ -75,7 +75,7 @@ def build_rubrics_text(rubrics):
     return "\n".join(lines) if lines else "No specific rubrics provided."
 
 
-def call_judge_api(client, model, rubrics_text, model_output, max_retries=3, retry_delay=3):
+def call_judge_api(client, model, rubrics_text, model_output, max_retries=3, retry_delay=3, reasoning_effort=None):
     """
     Call judge model API for grading (only handles API call, returns raw text).
     
@@ -129,10 +129,10 @@ def call_judge_api(client, model, rubrics_text, model_output, max_retries=3, ret
     
     for attempt in range(max_retries):
         try:
-            response = client.chat.completions.create(
-                model=model,
-                messages=messages,
-            )
+            create_kwargs = {"model": model, "messages": messages}
+            if reasoning_effort:
+                create_kwargs["reasoning_effort"] = reasoning_effort
+            response = client.chat.completions.create(**create_kwargs)
             result_text = response.choices[0].message.content.strip()
             
             # Remove code block wrapper if present
@@ -166,7 +166,7 @@ def get_task_id(item):
 
 def process_single_item(args):
     """Process a single item for grading."""
-    item, client, judge_model, max_retries = args
+    item, client, judge_model, max_retries, reasoning_effort = args
     idx = get_task_id(item)
     
     model_output = item.get("model_output", "")
@@ -190,7 +190,8 @@ def process_single_item(args):
     for parse_attempt in range(max_retries):
         # Call judge API
         grading_result = call_judge_api(
-            client, judge_model, rubrics_text, model_output, max_retries
+            client, judge_model, rubrics_text, model_output, max_retries,
+            reasoning_effort=reasoning_effort
         )
         
         if not grading_result:
@@ -266,6 +267,7 @@ def main():
     parser.add_argument("--api-key", type=str, default=None, help="API Key (optional)")
     parser.add_argument("--workers", type=int, default=1, help="Number of concurrent workers")
     parser.add_argument("--max-retries", type=int, default=3, help="Max retries per item")
+    parser.add_argument("--reasoning-effort", type=str, default=None, choices=["low", "medium", "high"], help="Reasoning effort for judge model")
     args = parser.parse_args()
     
     # Set output path
@@ -280,6 +282,8 @@ def main():
     log(f"📤 Output file: {args.output}")
     log(f"🤖 Judge model: {args.judge_model}")
     log(f"⚡ Workers: {args.workers}")
+    if args.reasoning_effort:
+        log(f"🧠 Reasoning effort: {args.reasoning_effort}")
     log("=" * 60)
     
     # Initialize OpenAI client
@@ -323,7 +327,7 @@ def main():
     log(f"🚀 Starting evaluation ({len(pending_items)} pending)...")
     
     # Prepare tasks
-    tasks = [(item, client, args.judge_model, args.max_retries) for item in pending_items]
+    tasks = [(item, client, args.judge_model, args.max_retries, args.reasoning_effort) for item in pending_items]
     
     # Statistics
     success_count = 0
