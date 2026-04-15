@@ -20,7 +20,6 @@
 - [Citation](#-citation)
 - [Contact](#-contact)
 
----
 
 ## CL-bench
 
@@ -51,7 +50,6 @@ CL-bench evaluates whether language models can learn new knowledge from context 
 - **Procedural Task Execution** — complex multi-step procedures to follow
 - **Empirical Discovery & Simulation** — patterns and laws derived from empirical data
 
----
 
 ## CLBench-life
 
@@ -75,7 +73,6 @@ CLBench-life extends context learning evaluation to real-life scenarios. Context
 - **Fragmented Information & Revisions** — personal notes, news feeds, document edit histories, version logs
 - **Behavioral Records & Activity Trails** — game logs, browsing histories, transactions, fitness/health tracking
 
----
 
 ## 🚀 Quick Start
 
@@ -140,13 +137,11 @@ Both datasets use the same JSONL format:
 }
 ```
 
----
 
 ## 📮 Submit Results
 
 Want to add your model to the leaderboard? Run inference and evaluation using the scripts above, then submit a PR to this repo with your graded result file (`*_graded.jsonl`). We will verify the results and update the leaderboard.
 
----
 
 ## 📝 Citation
 
