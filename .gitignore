@@ -76,6 +76,12 @@ outputs/
 logs/
 *.log
 
+# Local Harbor parity inputs and helper scripts
+CL-bench.jsonl
+CL-bench_parity*.jsonl
+parity300_*.txt
+run_parity*.sh
+
 # Temporary files
 *.tmp
 *.temp

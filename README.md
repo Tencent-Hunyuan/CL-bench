@@ -127,13 +127,32 @@ python eval.py --input outputs/gpt5-1.jsonl --judge-model gpt-5.1
 ```
 CL-bench/
 ├── README.md           # This file
-├── infer.py            # Inference script
+├── infer.py            # Inference script (direct API calls)
+├── infer_codex.py      # Inference script via Codex CLI in Docker (Harbor parity)
 ├── eval.py             # Evaluation script
+├── HARBOR.md           # Harbor parity experiment documentation
 ├── requirements.txt    # Python dependencies
 └── outputs/            # Output directory (created automatically)
 ```
 
 > **Note**: The dataset (`CL-bench.jsonl`) is hosted on [Hugging Face](https://huggingface.co/datasets/tencent/CL-bench). Please download it from there before running the scripts.
+
+## 🔗 Harbor Adapter Parity
+
+This fork adds `infer_codex.py` to support a fair parity comparison with the [Harbor clbench adapter](https://github.com/harbor-framework/harbor/tree/main/adapters/clbench).
+
+The original `infer.py` calls the OpenAI API directly. The Harbor adapter runs the [Codex CLI](https://github.com/openai/codex) agent inside a Docker container with file I/O (reading messages from `/app/messages/`, writing the answer to `/app/result.json`). `infer_codex.py` mirrors this exact environment so both sides are evaluated under identical conditions.
+
+**Parity results (gpt-5.2, 50 tasks, 3 runs, judge: gpt-4o-mini):**
+
+| Side | Execution | Solving Rate |
+|------|-----------|-------------|
+| Original (`infer_codex.py`) | codex@0.118.0 in Docker | 12.00% ± 1.15% |
+| Harbor adapter | codex@0.118.0 in Docker | 10.67% ± 1.33% |
+
+Scores use `mean ± sample SEM`. Run ranges overlap (original 10-14%, Harbor 8-12%), classified as **matching** by Harbor parity criteria. See [HARBOR.md](HARBOR.md) for full reproduction steps.
+
+The parity fork keeps the original task rubrics and binary scoring formula. `eval.py` only adds more robust judge-output parsing and rubric-equivalence guidance so verbose or fenced judge responses do not fail parsing.
 
 ## ⚙️ Script Options
 
@@ -150,7 +169,22 @@ CL-bench/
 | `--workers`     | 1                | Number of concurrent workers |
 | `--max-samples` | None             | Limit samples (for testing)  |
 
-### eval.py
+### infer_codex.py
+
+Runs inference via Codex CLI inside Docker — same execution environment as the Harbor adapter.
+
+| Argument        | Default                   | Description                              |
+| --------------- | ------------------------- | ---------------------------------------- |
+| `--model`       | `gpt-5.2`                 | Model name passed to codex               |
+| `--input`       | `CL-bench_parity50.jsonl` | Input file path                          |
+| `--output`      | Auto-generated            | Output file path                         |
+| `--base-url`    | From env                  | Custom API base URL (`OPENAI_BASE_URL`)  |
+| `--api-key`     | From env                  | API key (`OPENAI_API_KEY`)               |
+| `--workers`     | 2                         | Number of concurrent Docker containers   |
+| `--timeout`     | 900                       | Per-task timeout in seconds              |
+| `--skip-build`  | False                     | Skip Docker image build (reuse existing) |
+
+
 
 
 | Argument        | Default        | Description                  |
