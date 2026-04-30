@@ -8,13 +8,13 @@
 
 ## 🔥 News!!
 
-- **2026.04**: 🎉 [CLBench-life](#clbench-life) released — 405 real-life context learning tasks (group chats, personal notes, game logs, etc.) with 5,348 rubrics. Best model solves 19.3%. [[Paper]](clbench-life-paper.pdf) [[Data]](https://huggingface.co/datasets/tencent/CLBench-life)
+- **2026.04**: 🎉 [CL-bench Life](#cl-bench-life) released — 405 real-life context learning tasks (group chats, personal notes, game logs, etc.) with 5,348 rubrics. [[Paper]](CL-bench%20Life-paper.pdf) [[Data]](https://huggingface.co/datasets/tencent/CL-bench%20Life)
 - **2026.02**: 🎉 [CL-bench](#cl-bench-1) released — 1,899 professional & domain-specific context learning tasks. Best model solves 23.7%. [[Paper]](https://arxiv.org/abs/2602.03587) [[Data]](https://huggingface.co/datasets/tencent/CL-bench) [[Blog]](https://hy.tencent.com/research/100025?langVersion=en)
 
 ## Contents
 
 - [CL-bench](#cl-bench-1) — Professional & domain-specific context learning
-- [CLBench-life](#clbench-life) — Real-life context learning
+- [CL-bench Life](#cl-bench-life) — Real-life context learning
 - [Quick Start](#-quick-start)
 - [Submit Results](#-submit-results)
 - [Citation](#-citation)
@@ -28,7 +28,7 @@
 [![Blog](https://img.shields.io/badge/Blog-Tencent-green.svg?style=flat-square)](https://hy.tencent.com/research/100025?langVersion=en)
 [![Leaderboard](https://img.shields.io/badge/Leaderboard-www.clbench.com-red.svg?style=flat-square)](https://www.clbench.com)
 
-CL-bench evaluates whether language models can learn new knowledge from context at inference time. Tasks require models to learn from domain-specific knowledge, rule systems, complex procedures, and empirical laws — all absent from pre-training.
+CL-bench evaluates whether language models can learn new knowledge from context at inference time. Tasks require models to learn from domain-specific knowledge, rule systems, complex procedures, and empirical laws.
 
 <p align="center">
   <img src="assets/four-concepts.png" alt="Four key concepts" width="70%">
@@ -51,18 +51,18 @@ CL-bench evaluates whether language models can learn new knowledge from context 
 - **Empirical Discovery & Simulation** — patterns and laws derived from empirical data
 
 
-## CLBench-life
+## CL-bench Life
 
-[![Paper](https://img.shields.io/badge/Paper-PDF-blue.svg?style=flat-square)](clbench-life-paper.pdf)
-[![Data](https://img.shields.io/badge/Data-HuggingFace-yellow.svg?style=flat-square)](https://huggingface.co/datasets/tencent/CLBench-life)
+[![Paper](https://img.shields.io/badge/Paper-PDF-blue.svg?style=flat-square)](CL-bench%20Life-paper.pdf)
+[![Data](https://img.shields.io/badge/Data-HuggingFace-yellow.svg?style=flat-square)](https://huggingface.co/datasets/tencent/CL-bench%20Life)
 [![Leaderboard](https://img.shields.io/badge/Leaderboard-www.clbench.com-red.svg?style=flat-square)](https://www.clbench.com)
 
-CLBench-life extends context learning evaluation to real-life scenarios. Contexts are messy, fragmented, and grounded in everyday experience — the kind of data people actually deal with daily. Even the best model (GPT-5.4) solves only 19.3%, with an average of 13% across 10 frontier models.
+CL-bench Life extends context learning evaluation to real-life scenarios. Contexts are messy, fragmented, and grounded in everyday experience — the kind of data people actually deal with daily. Even the best model (GPT-5.4) solves only 19.3%, with an average of 13% across 10 frontier models.
 
 
 
 <p align="center">
-  <img src="assets/life-task.png" alt="CLBench-life Overview" width="80%">
+  <img src="assets/life-task.png" alt="CL-bench Life Overview" width="80%">
 </p>
 
 
@@ -84,7 +84,7 @@ pip install openai tqdm
 
 Download datasets from HuggingFace:
 - [tencent/CL-bench](https://huggingface.co/datasets/tencent/CL-bench) → `CL-bench.jsonl`
-- [tencent/CLBench-life](https://huggingface.co/datasets/tencent/CLBench-life) → `CLBench-life.jsonl`
+- [tencent/CL-bench Life](https://huggingface.co/datasets/tencent/CL-bench%20Life) → `CL-bench Life.jsonl`
 
 ### Inference
 
@@ -94,8 +94,8 @@ export OPENAI_API_KEY="your_api_key"
 # CL-bench
 python infer.py --model <model_name> --input CL-bench.jsonl --workers 20
 
-# CLBench-life
-python infer.py --model <model_name> --input CLBench-life.jsonl --workers 20
+# CL-bench Life
+python infer.py --model <model_name> --input "CL-bench Life.jsonl" --workers 20
 
 # For non-OpenAI models, specify base URL and API key
 python infer.py --model <model_name> \
@@ -106,13 +106,13 @@ python infer.py --model <model_name> \
 
 ### Evaluation
 
-CL-bench uses GPT-5.1 (low reasoning effort) as the default judge; CLBench-life uses GPT-5.1 (high reasoning effort).
+CL-bench uses GPT-5.1 (low reasoning effort) as the default judge; CL-bench Life uses GPT-5.1 (high reasoning effort).
 
 ```bash
 # CL-bench (low reasoning effort)
 python eval.py --input outputs/<model_output>.jsonl --judge-model gpt-5.1 --reasoning-effort low
 
-# CLBench-life (high reasoning effort)
+# CL-bench Life (high reasoning effort)
 python eval.py --input outputs/<model_output>.jsonl --judge-model gpt-5.1 --reasoning-effort high
 ```
 
@@ -154,12 +154,6 @@ Want to add your model to the leaderboard? Run inference and evaluation using th
       archivePrefix={arXiv},
       primaryClass={cs.CL},
       url={https://arxiv.org/abs/2602.03587}, 
-}
-
-@article{clbenchlife2025,
-      title={CLBench-life: Can Language Models Learn from Real-Life Context?},
-      author={},
-      year={2025},
 }
 ```
 
