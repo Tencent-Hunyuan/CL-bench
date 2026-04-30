@@ -9,7 +9,7 @@
 ## 🔥 News!!
 
 - **2026.04**: 🎉 [CL-bench Life](#cl-bench-life) released — 405 real-life context learning tasks (group chats, personal notes, game logs, etc.) with 5,348 rubrics. [[Paper]](CL-bench%20Life-paper.pdf) [[Data]](https://huggingface.co/datasets/tencent/CL-bench%20Life)
-- **2026.02**: 🎉 [CL-bench](#cl-bench-1) released — 1,899 professional & domain-specific context learning tasks. Best model solves 23.7%. [[Paper]](https://arxiv.org/abs/2602.03587) [[Data]](https://huggingface.co/datasets/tencent/CL-bench) [[Blog]](https://hy.tencent.com/research/100025?langVersion=en)
+- **2026.02**: 🎉 [CL-bench](#cl-bench-1) released — 1,899 professional & domain-specific context learning tasks. [[Paper]](https://arxiv.org/abs/2602.03587) [[Data]](https://huggingface.co/datasets/tencent/CL-bench) [[Blog]](https://hy.tencent.com/research/100025?langVersion=en)
 
 ## Contents
 
@@ -57,7 +57,7 @@ CL-bench evaluates whether language models can learn new knowledge from context 
 [![Data](https://img.shields.io/badge/Data-HuggingFace-yellow.svg?style=flat-square)](https://huggingface.co/datasets/tencent/CL-bench%20Life)
 [![Leaderboard](https://img.shields.io/badge/Leaderboard-www.clbench.com-red.svg?style=flat-square)](https://www.clbench.com)
 
-CL-bench Life extends context learning evaluation to real-life scenarios. Contexts are messy, fragmented, and grounded in everyday experience — the kind of data people actually deal with daily. Even the best model (GPT-5.4) solves only 19.3%, with an average of 13% across 10 frontier models.
+CL-bench Life extends context learning evaluation to real-life scenarios. Contexts are messy, fragmented, and grounded in everyday experience — the kind of data people actually deal with daily.
 
 
 
@@ -69,9 +69,9 @@ CL-bench Life extends context learning evaluation to real-life scenarios. Contex
 **Stats**: 405 context-task pairs · 5,348 rubrics (avg. 10.7 per task) · 3 categories · 9 sub-categories
 
 **Context Categories**:
-- **Communication & Social Interactions** — group chats, meeting transcripts, private conversations, community threads
-- **Fragmented Information & Revisions** — personal notes, news feeds, document edit histories, version logs
-- **Behavioral Records & Activity Trails** — game logs, browsing histories, transactions, fitness/health tracking
+- **Communication & Social Interactions** — group chats, meeting transcripts, private conversations, community threads...
+- **Fragmented Information & Revisions** — personal notes, news feeds, document edit histories, version logs...
+- **Behavioral Records & Activity Trails** — game logs, browsing histories, transactions, fitness/health tracking...
 
 
 ## 🚀 Quick Start
