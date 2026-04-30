@@ -8,7 +8,7 @@
 
 ## 🔥 News!!
 
-- **2026.04**: 🎉 [CL-bench Life](#cl-bench-life) released — 405 real-life context learning tasks (group chats, personal notes, game logs, etc.) with 5,348 rubrics. [[Paper]](CL-bench%20Life-paper.pdf) [[Data]](https://huggingface.co/datasets/tencent/CL-bench%20Life)
+- **2026.04**: 🎉 [CL-bench Life](#cl-bench-life) released — 405 real-life context learning tasks (group chats, personal notes, game logs, etc.) with 5,348 rubrics. [[Paper]](clbench-life-paper.pdf) [[Data]](https://huggingface.co/datasets/tencent/CL-bench-Life)
 - **2026.02**: 🎉 [CL-bench](#cl-bench-1) released — 1,899 professional & domain-specific context learning tasks. [[Paper]](https://arxiv.org/abs/2602.03587) [[Data]](https://huggingface.co/datasets/tencent/CL-bench) [[Blog]](https://hy.tencent.com/research/100025?langVersion=en)
 
 ## Contents
@@ -53,8 +53,8 @@ CL-bench evaluates whether language models can learn new knowledge from context 
 
 ## CL-bench Life
 
-[![Paper](https://img.shields.io/badge/Paper-PDF-blue.svg?style=flat-square)](CL-bench%20Life-paper.pdf)
-[![Data](https://img.shields.io/badge/Data-HuggingFace-yellow.svg?style=flat-square)](https://huggingface.co/datasets/tencent/CL-bench%20Life)
+[![Paper](https://img.shields.io/badge/Paper-PDF-blue.svg?style=flat-square)](clbench-life-paper.pdf)
+[![Data](https://img.shields.io/badge/Data-HuggingFace-yellow.svg?style=flat-square)](https://huggingface.co/datasets/tencent/CL-bench-Life)
 [![Leaderboard](https://img.shields.io/badge/Leaderboard-www.clbench.com-red.svg?style=flat-square)](https://www.clbench.com)
 
 CL-bench Life extends context learning evaluation to real-life scenarios. Contexts are messy, fragmented, and grounded in everyday experience — the kind of data people actually deal with daily.
@@ -84,7 +84,7 @@ pip install openai tqdm
 
 Download datasets from HuggingFace:
 - [tencent/CL-bench](https://huggingface.co/datasets/tencent/CL-bench) → `CL-bench.jsonl`
-- [tencent/CL-bench Life](https://huggingface.co/datasets/tencent/CL-bench%20Life) → `CL-bench Life.jsonl`
+- [tencent/CL-bench-Life](https://huggingface.co/datasets/tencent/CL-bench-Life) → `CL-bench-Life.jsonl`
 
 ### Inference
 
@@ -95,7 +95,7 @@ export OPENAI_API_KEY="your_api_key"
 python infer.py --model <model_name> --input CL-bench.jsonl --workers 20
 
 # CL-bench Life
-python infer.py --model <model_name> --input "CL-bench Life.jsonl" --workers 20
+python infer.py --model <model_name> --input CL-bench-Life.jsonl --workers 20
 
 # For non-OpenAI models, specify base URL and API key
 python infer.py --model <model_name> \
