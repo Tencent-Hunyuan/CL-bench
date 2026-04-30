@@ -6,12 +6,12 @@
 
 [![Website](https://img.shields.io/badge/Website-www.clbench.com-black.svg?style=flat-square)](https://www.clbench.com)
 
-## 🔥 News!!
+## 🔥 News
 
 - **2026.04**: 🎉 [CL-bench Life](#cl-bench-life) released — 405 real-life context learning tasks (group chats, personal notes, game logs, etc.) with 5,348 rubrics. [[Paper]](clbench-life-paper.pdf) [[Data]](https://huggingface.co/datasets/tencent/CL-bench-Life)
 - **2026.02**: 🎉 [CL-bench](#cl-bench-1) released — 1,899 professional & domain-specific context learning tasks. [[Paper]](https://arxiv.org/abs/2602.03587) [[Data]](https://huggingface.co/datasets/tencent/CL-bench) [[Blog]](https://hy.tencent.com/research/100025?langVersion=en)
 
-## Contents
+## 📋 Contents
 
 - [CL-bench](#cl-bench-1) — Professional & domain-specific context learning
 - [CL-bench Life](#cl-bench-life) — Real-life context learning
@@ -21,7 +21,7 @@
 - [Contact](#-contact)
 
 
-## CL-bench
+## 📄 CL-bench
 
 [![Paper](https://img.shields.io/badge/Paper-arXiv:2602.03587-blue.svg?style=flat-square)](https://arxiv.org/abs/2602.03587)
 [![Data](https://img.shields.io/badge/Data-HuggingFace-yellow.svg?style=flat-square)](https://huggingface.co/datasets/tencent/CL-bench)
@@ -51,7 +51,7 @@ CL-bench evaluates whether language models can learn new knowledge from context 
 - **Empirical Discovery & Simulation** — patterns and laws derived from empirical data
 
 
-## CL-bench Life
+## 📄 CL-bench Life
 
 [![Paper](https://img.shields.io/badge/Paper-PDF-blue.svg?style=flat-square)](clbench-life-paper.pdf)
 [![Data](https://img.shields.io/badge/Data-HuggingFace-yellow.svg?style=flat-square)](https://huggingface.co/datasets/tencent/CL-bench-Life)
