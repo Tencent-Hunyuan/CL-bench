@@ -55,6 +55,7 @@ CL-bench evaluates whether language models can learn new knowledge from context 
 
 [![Paper](https://img.shields.io/badge/Paper-PDF-blue.svg?style=flat-square)](clbench-life-paper.pdf)
 [![Data](https://img.shields.io/badge/Data-HuggingFace-yellow.svg?style=flat-square)](https://huggingface.co/datasets/tencent/CL-bench-Life)
+[![Blog](https://img.shields.io/badge/Blog-Tencent-green.svg?style=flat-square)](https://hy.tencent.com/research/100039?langVersion=en)
 [![Leaderboard](https://img.shields.io/badge/Leaderboard-www.clbench.com-red.svg?style=flat-square)](https://www.clbench.com)
 
 CL-bench Life extends context learning evaluation to real-life scenarios. Contexts are messy, fragmented, and grounded in everyday experience — the kind of data people actually deal with daily.
