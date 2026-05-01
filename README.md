@@ -8,7 +8,7 @@
 
 ## 🔥 News
 
-- **2026.04**: 🎉 [CL-bench Life](#cl-bench-life) released — 405 real-life context learning tasks (group chats, personal notes, game logs, etc.) with 5,348 rubrics. [[Paper]](https://arxiv.org/abs/2604.27043) [[Data]](https://huggingface.co/datasets/tencent/CL-bench-Life)
+- **2026.04**: 🎉 [CL-bench Life](#cl-bench-life) released — 405 real-life context learning tasks (group chats, personal notes, game logs, etc.) with 5,348 rubrics. [[Paper]](https://arxiv.org/abs/2604.27043) [[Data]](https://huggingface.co/datasets/tencent/CL-bench-Life)[[Blog]](https://hy.tencent.com/research/100039?langVersion=en)
 - **2026.02**: 🎉 [CL-bench](#cl-bench-1) released — 1,899 professional & domain-specific context learning tasks. [[Paper]](https://arxiv.org/abs/2602.03587) [[Data]](https://huggingface.co/datasets/tencent/CL-bench) [[Blog]](https://hy.tencent.com/research/100025?langVersion=en)
 
 ## 📋 Contents
