@@ -156,6 +156,17 @@ Want to add your model to the leaderboard? Run inference and evaluation using th
       primaryClass={cs.CL},
       url={https://arxiv.org/abs/2602.03587}, 
 }
+
+@misc{dou2026clbenchlifelanguagemodels,
+      title={CL-bench Life: Can Language Models Learn from Real-Life Context?}, 
+      author={Shihan Dou and Yujiong Shen and Chenhao Huang and Junjie Ye and Jiayi Chen and Junzhe Wang and Qianyu He and Shichun Liu and Changze Lv and Jiahang Lin and Jiazheng Zhang and Ming Zhang and Shaofan Liu and Tao Ji and Zhangyue Yin and Cheng Zhang and Huaibing Xie and Jianglu Hu and Jingcheng Deng and Lincheng Li and Minda Hu and Shaolei Wang and Syrus Zhao and Weichao Wang and Yan Lei and Yang Liu and Yanling Xiao and Yiting Liu and Zenan Xu and Zhen Guo and Ziliang Zhao and Pluto Zhou and Tao Gui and Qi Zhang and Xuanjing Huang and Yu-Gang Jiang and Di Wang and Shunyu Yao},
+      year={2026},
+      eprint={2604.27043},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2604.27043}, 
+}
+
 ```
 
 
