@@ -8,7 +8,7 @@
 
 ## 🔥 News
 
-- **2026.04**: 🎉 [CL-bench Life](#cl-bench-life) released — 405 real-life context learning tasks (group chats, personal notes, game logs, etc.) with 5,348 rubrics. [[Paper]](clbench-life-paper.pdf) [[Data]](https://huggingface.co/datasets/tencent/CL-bench-Life)
+- **2026.04**: 🎉 [CL-bench Life](#cl-bench-life) released — 405 real-life context learning tasks (group chats, personal notes, game logs, etc.) with 5,348 rubrics. [[Paper]](https://arxiv.org/abs/2604.27043) [[Data]](https://huggingface.co/datasets/tencent/CL-bench-Life)
 - **2026.02**: 🎉 [CL-bench](#cl-bench-1) released — 1,899 professional & domain-specific context learning tasks. [[Paper]](https://arxiv.org/abs/2602.03587) [[Data]](https://huggingface.co/datasets/tencent/CL-bench) [[Blog]](https://hy.tencent.com/research/100025?langVersion=en)
 
 ## 📋 Contents
@@ -53,7 +53,7 @@ CL-bench evaluates whether language models can learn new knowledge from context 
 
 ## 📄 CL-bench Life
 
-[![Paper](https://img.shields.io/badge/Paper-PDF-blue.svg?style=flat-square)](clbench-life-paper.pdf)
+[![Paper](https://img.shields.io/badge/Paper-arXiv:2604.27043-blue.svg?style=flat-square)](https://arxiv.org/abs/2604.27043)
 [![Data](https://img.shields.io/badge/Data-HuggingFace-yellow.svg?style=flat-square)](https://huggingface.co/datasets/tencent/CL-bench-Life)
 [![Blog](https://img.shields.io/badge/Blog-Tencent-green.svg?style=flat-square)](https://hy.tencent.com/research/100039?langVersion=en)
 [![Leaderboard](https://img.shields.io/badge/Leaderboard-www.clbench.com-red.svg?style=flat-square)](https://www.clbench.com)
