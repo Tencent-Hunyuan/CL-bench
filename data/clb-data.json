@@ -33,5 +33,6 @@
   { "model": "Doubao 1.6", "org": "ByteDance", "overall": 0.131, "overall_std": 0.001, "domain": 0.119, "domain_std": 0.005, "rule": 0.147, "rule_std": 0.007, "procedural": 0.151, "procedural_std": 0.005, "pattern": 0.079, "pattern_std": 0.008 },
   { "model": "DeepSeek V3.2", "org": "DeepSeek", "overall": 0.124, "overall_std": 0.005, "domain": 0.123, "domain_std": 0.008, "rule": 0.134, "rule_std": 0.010, "procedural": 0.135, "procedural_std": 0.004, "pattern": 0.070, "pattern_std": 0.005 },
   { "model": "Kimi K2", "org": "Moonshot", "overall": 0.119, "overall_std": 0.005, "domain": 0.123, "domain_std": 0.011, "rule": 0.127, "rule_std": 0.005, "procedural": 0.132, "procedural_std": 0.011, "pattern": 0.057, "pattern_std": 0.008 },
-  { "model": "MiniMax M2.5", "org": "MiniMax", "overall": 0.114, "overall_std": 0, "domain": 0.122, "domain_std": 0, "rule": 0.106, "rule_std": 0, "procedural": 0.137, "procedural_std": 0, "pattern": 0.051, "pattern_std": 0 }
+  { "model": "MiniMax M2.5", "org": "MiniMax", "overall": 0.114, "overall_std": 0, "domain": 0.122, "domain_std": 0, "rule": 0.106, "rule_std": 0, "procedural": 0.137, "procedural_std": 0, "pattern": 0.051, "pattern_std": 0 },
+  { "model": "Polyphony", "org": "Mininglamp", "overall": 0.234, "overall_std": 0.004, "domain": 0.251, "domain_std": 0.010, "rule": 0.227, "rule_std": 0.005, "procedural": 0.267, "procedural_std": 0.009, "pattern": 0.117, "pattern_std": 0.006 }
 ]
