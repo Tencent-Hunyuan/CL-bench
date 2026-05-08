@@ -1,4 +1,8 @@
 [
+  { "model": "Ctx2Skill - GPT-4.1", "org": "THU, DeepLang AI, and UIUC", "overall": 0.165, "overall_std": 0, "domain": 0.168, "domain_std": 0, "rule": 0.176, "rule_std": 0, "procedural": 0.176, "procedural_std": 0, "pattern": 0.097, "pattern_std": 0 },
+  { "model": "Ctx2Skill - GPT-5.1", "org": "THU, DeepLang AI, and UIUC", "overall": 0.258, "overall_std": 0, "domain": 0.279, "domain_std": 0, "rule": 0.249, "rule_std": 0, "procedural": 0.269, "procedural_std": 0, "pattern": 0.191, "pattern_std": 0},
+  { "model": "Ctx2Skill - GPT-5.2", "org": "THU, DeepLang AI, and UIUC", "overall": 0.214, "overall_std": 0, "domain": 0.222, "domain_std": 0, "rule": 0.204, "rule_std": 0, "procedural": 0.254, "procedural_std": 0, "pattern": 0.126, "pattern_std": 0},
+  { "model": "GPT-4.1", "org": "OpenAI", "overall": 0.111, "overall_std": 0, "domain": 0.106, "domain_std": 0, "rule": 0.148, "rule_std": 0, "procedural": 0.104, "procedural_std": 0, "pattern": 0.046, "pattern_std": 0},
   { "model": "GPT-5.4 (xhigh)", "org": "OpenAI", "overall": 0.279, "overall_std": 0, "domain": 0.288, "domain_std": 0, "rule": 0.267, "rule_std": 0, "procedural": 0.301, "procedural_std": 0, "pattern": 0.228, "pattern_std": 0 },
   { "model": "GPT 5.1 (High)", "org": "OpenAI", "overall": 0.237, "overall_std": 0.005, "domain": 0.253, "domain_std": 0.013, "rule": 0.237, "rule_std": 0.013, "procedural": 0.238, "procedural_std": 0.014, "pattern": 0.181, "pattern_std": 0.031 },
   { "model": "Hy3 preview", "org": "Tencent", "overall": 0.228, "overall_std": 0, "domain": 0.252, "domain_std": 0, "rule": 0.216, "rule_std": 0, "procedural": 0.223, "procedural_std": 0, "pattern": 0.196, "pattern_std": 0 },
