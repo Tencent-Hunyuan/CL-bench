@@ -91,7 +91,7 @@ def call_judge_api(client, model, rubrics_text, model_output, max_retries=3, ret
         result_text: Raw response text from API, or None if failed
     """
     grading_prompt = (
-        "Starting now, you are a rigorous instruction-following grading teacher. Your task is to accurately grade and score student answers based on the 【Rubrics】.\n\n"
+        "You are an impartial evaluator. Assess the candidate response against the supplied 【Rubrics】.\n\n"
         "Grading Criteria\n"
         "This is a strict, all-or-nothing grading system. The final score is binary.\n"
         "To receive a score of 1, the student's answer must perfectly satisfy every single requirement listed in the 【Rubrics】.\n"
